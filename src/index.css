@@ -317,7 +317,7 @@ body {
 }
 
 .loginWelcomeText {
-  margin-top: 10px;
+  margin-top: 8.2vh;
   font-size: 30px;
   margin-bottom: 0;
 }
@@ -352,7 +352,8 @@ body {
 .responsive-table 
   li {
     border-radius: 3px;
-    padding: 25px 30px;
+    /* padding: 25px 30px; original padding*/
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
@@ -372,15 +373,23 @@ body {
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
   }
   .col-1 {
+    margin-top: auto;
+    margin-bottom: auto;
     flex-basis: 10%;
   }
   .col-2 {
+    margin-top: auto;
+    margin-bottom: auto;
     flex-basis: 40%;
   }
   .col-3 {
+    margin-top: auto;
+    margin-bottom: auto;
     flex-basis: 25%;
   }
   .col-4 {
+    margin-top: auto;
+    margin-bottom: auto;
     flex-basis: 25%;
   }
   
@@ -555,6 +564,227 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
     font-weight: bold;
   }
 
+  .passwordTip {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .passwordTipText {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    background-color: #66B3FB;
+    color: #fff;
+    white-space: nowrap;
+    border-radius: 7px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    padding: 5px;
+  }
+  
+
+  .passwordTipText::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 15px solid;
+    border-color: #000 #0000 #0000 #0000;
+
+  }
+
+  .passwordTip:hover .passwordTipText {
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .memberDrop ul{
+    list-style: none;
+    background: green;
+
+  }
+
+  .memberDrop ul li {
+    display: inline-block;
+    position: relative;
+   
+    padding: 0;
+  }
+
+  .memberDrop ul li a {
+    display: block;
+    padding: 20px 25px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 19px;
+   
+    
+  }
+
+  ul li ul.dropDown li {
+    display: block;
+  }
+
+  ul li ul.dropDown {
+    width: 10%;
+    background: #0088a9;
+    position: absolute;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* .memberDrop ul li a:hover {
+    background: #1CB0F6;
+  }
+
+  .memberDrop ul li:hover ul.dropDown {
+    display: block;
+  } */
+
+  .memberDrop ul li a:hover {
+    background: orange;
+  }
+
+    li:hover ul.dropDown {
+    display: block;
+  }
+
+  .messageBtn {
+    padding: 9px 25px;
+    /* padding: 5px 25px; */
+    /* background-color: rgba(255, 140, 66,0.8); */
+    background-color: rgba(246, 98, 28,0.8);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+
+  }
+  
+  .messageBtn:hover {
+    /* background-color: rgba(255, 140, 66,1); */
+    background-color: rgba(246, 98, 28,1);
+  
+  }
+
+  .reportBtn {
+    padding: 9px 25px;
+    /* padding: 5px 25px; */
+    background-color: rgba(255, 50, 50,0.8);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+
+  }
+  
+  .reportBtn:hover {
+    background-color: rgba(255, 50, 50,1);
+  
+  }
+
+  .loginError {
+    color: red;
+    font-size: 17px;
+  }
+
+  .profileBackground {
+    background-color: #1899D6;
+    height: 899px;
+    width: 100%;
+    display: flex;
+  }
+
+  .profileBody {
+    background-color: white;
+    width: 85%;
+    height:85%;
+    justify-content: space-evenly;
+    align-self: center;
+    margin: 0 auto;
+    border-radius: 15px;
+    display: flex;
+    
+  }
+
+  .viewProfilePic {
+    height: 350px;
+    margin-top: 80px;
+  }
+
+  .profileDataView {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .editProfileBtn {
+    padding: 9px 25px;
+    background-color: rgba(246, 98, 28,0.8);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 10rem;
+  }
+  
+  .editProfileBtn:hover {
+    background-color: rgba(246, 98, 28,1);
+  
+  }
+
+  .reportBtnProfile {
+    padding: 9px 25px;
+    background-color: rgba(255, 50, 50,0.8);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 31.25rem;
+  }
+  
+  .reportBtnProfile:hover {
+    background-color: rgba(255, 50, 50,1);
+  }
+
+  .saveProfileBtn {
+    padding: 9px 25px;
+    background-color: rgba(18, 190, 28,0.8);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 3rem;
+  }
+  
+  .saveProfileBtn:hover {
+    background-color: rgba(18, 190, 28,1);
+  
+  }
+
+  
 /* .signUpPage {
   height: 100vh;
   background-image: url(/public/background2.jpg);

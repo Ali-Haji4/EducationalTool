@@ -1,15 +1,22 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link, redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
+import App from "./App";
 
 export default function SignUpTutor() {
 
+    //Storing form data
     const [formData, setFormData] = React.useState(
-        {username: "", password: "", confirmedPassword: "", firstName: "", lastName: "", email: "", occupation: ""}
+        {username: "", password: "", confirmedPassword: "", firstName: "", lastName: "", fullName: "", email: "", degree: "Cert Academic Tutor"}
         )
+    
+        
+    const [errorMsg, setErrorMsg] = React.useState(false);
+    const [errorMsgText, setErrorMsgText] = React.useState("");
 
-        console.log(formData)
+    const navigate = useNavigate();
 
+    //React to data change    
     function handleChange(event) {
         setFormData(prevFormData=> {
             return {
@@ -19,20 +26,74 @@ export default function SignUpTutor() {
     }
 
     function handleSubmit(event) {
-        console.log(formData)
+        event.preventDefault();
+        console.log(formData);
+        
+        //Variables
+        const username=document.signUpForm.username.value;  
+        const password=document.signUpForm.password.value;  
+        const firstName = document.signUpForm.firstName.value;
+        const lastName = document.signUpForm.lastName.value;
+
+        //Username regex (Not used)
+        const usernameRegex = "^[A-Za-z0-9]+";
+
+        //Password regex
+        //Minimum eight characters
+        //at least one uppercase letter, one lowercase letter and one number:
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+         //Validate username
+         if (username==null || username==""){  
+            setErrorMsgText("Username can't be blank");
+            setErrorMsg(true);
+            return false;  
+        }else if (username.length<6) {
+            setErrorMsgText("Username must be at least 6 characters long");
+            setErrorMsg(true); 
+            return false;
+        }else if(!passwordRegex.test(password)){  
+            setErrorMsgText("Password must be at least 8 characters long, and contain at least one uppercase letter, one lowercase letter and one number.");
+            setErrorMsg(true);
+            return false;  
+        }else if(firstName==null || firstName==""){
+            setErrorMsgText("First Name can't be blank");
+            setErrorMsg(true);
+            return false;     
+        }else if(lastName==null || lastName==""){
+            setErrorMsgText("Last Name can't be blank");
+            setErrorMsg(true);
+            return false;     
+        }
+
+        //Validate Email
+        let x = document.signUpForm.email.value;  
+        let atposition= x.indexOf("@");  
+        let dotposition= x.lastIndexOf(".");  
+        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){  
+            setErrorMsgText("Please enter a valid e-mail address");
+            setErrorMsg(true);
+        return false;  
+        }  
+
+        //Validate Password
         if (formData.password === formData.confirmedPassword) {
             console.log("Succesfully signed up")
+            axios.post('http://localhost/reactProject/insert.php',formData) //fix this shiiiiit
+            .then(res=> console.log(res.data))
+            .catch(error => {
+              console.log(error.response)
+          });
+
+        //Upon success show alert and move to login page    
+        alert("Account Succesfully Registered. Redirecting to Login Page...");
+        navigate('/Login');
         }
-        else {console.log("Passwords do not match")}
+        else {
+            setErrorMsgText("Passwords Do Not Match");
+            setErrorMsg(true);
+        }
 
-        event.preventDefault()
-    }
-
-    const navigate = useNavigate();
-
-    function registerAlert() {
-        alert("Succesfully Registered. Redirecting to Login Page")
-        navigate("/Login")
     }
 
     return (
@@ -54,8 +115,10 @@ export default function SignUpTutor() {
                 
             <h1 className="studentRegistrationTitle">Tutor Registration</h1>
 
+            {errorMsg && <p className="loginError">{errorMsgText}</p>}
+
             <div className="SignUpFormStudent">
-                <form className="form" onSubmit={handleSubmit}>
+                <form action="insert.php" name="signUpForm" method="post" className="form" onSubmit={handleSubmit}>
 
                     <label className="tutorLabel">Username</label>
                     <input 
@@ -126,9 +189,9 @@ export default function SignUpTutor() {
                     <label className="tutorLabel">Occupation</label>
                     <select
                             required
-                            name="occupation"
+                            name="degree"
                             onChange={handleChange}
-                            value={formData.occupation}>
+                            value={formData.degree}>
 
                                 <option>Cert Academic Tutor</option>
                                 <option>Business Tutor</option>
@@ -136,13 +199,15 @@ export default function SignUpTutor() {
                                 <option>IT Tutor</option>
                                 <option>Film and Animation Tutor</option>
                                 <option>Logistics Tutor</option>
-                                <optin>Visual Design Tutor</optin>
+                                <option>Visual Design Tutor</option>
                                 <option>Web Media Tutor</option>
                     </select>
-
-                    <button type="submit" className="button-19" onClick={registerAlert}>Register</button>
+                    
+                    <button type="submit" className="button-19" onClick={handleSubmit}>Register</button>
                     {/* //fix onClick to make form validation work */}
+                    
                 </form>
+                
             </div>
             </div>
 

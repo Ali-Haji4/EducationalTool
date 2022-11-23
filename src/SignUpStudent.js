@@ -1,15 +1,20 @@
 import React from "react";
 import { Link , useNavigate} from "react-router-dom";
-
+import axios from "axios";
 
 export default function SignUpStudent() {
 
+    //Storing form data
     const [formData, setFormData] = React.useState(
-        {username: "", password: "", confirmedPassword: "", firstName: "", lastName: "", email: "", year: "", degree: ""}
+        {username: "", password: "", confirmedPassword: "", firstName: "", lastName: "", email: "", year: "1", degree: "Cert Academic"}
         )
 
-        console.log(formData)
+    const [errorMsg, setErrorMsg] = React.useState(false);
+    const [errorMsgText, setErrorMsgText] = React.useState("");
 
+    const navigate = useNavigate();
+
+    //React to data change    
     function handleChange(event) {
         setFormData(prevFormData=> {
             return {
@@ -19,21 +24,75 @@ export default function SignUpStudent() {
     }
 
     function handleSubmit(event) {
-        event.preventDefault()
-        console.log(formData)
-        if (formData.password === formData.confirmedPassword) {
-            console.log("Succesfully signed up")
+        event.preventDefault();
+        console.log(formData);
+        
+        //Variables
+        const username=document.signUpForm.username.value;  
+        const password=document.signUpForm.password.value;  
+        const firstName = document.signUpForm.firstName.value;
+        const lastName = document.signUpForm.lastName.value;
+        
+        //Username regex (Not used)
+        const usernameRegex = "^[A-Za-z0-9]+";
+
+        //Password regex
+        //Minimum eight characters
+        //at least one uppercase letter, one lowercase letter and one number:
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        
+        //Validate username
+        if (username==null || username==""){  
+            setErrorMsgText("Username can't be blank");
+            setErrorMsg(true);
+            return false;  
+        }else if (username.length<6) {
+            setErrorMsgText("Username must be at least 6 characters long");
+            setErrorMsg(true); 
+            return false;
+        }else if(!passwordRegex.test(password)){  
+            setErrorMsgText("Password must be at least 8 characters long, and contain at least one uppercase letter, one lowercase letter and one number.");
+            setErrorMsg(true);
+            return false;  
+        }else if(firstName==null || firstName==""){
+            setErrorMsgText("First Name can't be blank");
+            setErrorMsg(true);
+            return false;     
+        }else if(lastName==null || lastName==""){
+            setErrorMsgText("Last Name can't be blank");
+            setErrorMsg(true);
+            return false;     
         }
-        else {console.log("Passwords do not match")}
+          
+          
+        //Validate Email
+        let x = document.signUpForm.email.value;  
+        let atposition= x.indexOf("@");  
+        let dotposition= x.lastIndexOf(".");  
+        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){  
+            setErrorMsgText("Please enter a valid e-mail address");
+            setErrorMsg(true);
+            return false;  
+        }  
+        
+        //Validate Passowrd
+        if (formData.password === formData.confirmedPassword) {
+            console.log("Succesfully signed up");
+            axios.post('http://localhost/reactProject/insertStudent.php',formData) //fix this shiiiiit
+            .then(res=> console.log(res.data))
+            .catch(error => {
+              console.log(error.response)
+          });
 
-     
-    }
+        //Upon success show alert and move to login page  
+        alert("Account Succesfully Registered. Redirecting to Login Page...");
+        navigate('/Login');
+        }
+        else {
+            setErrorMsgText("Passwords Do Not Match");
+            setErrorMsg(true);
+        }
 
-    const navigate = useNavigate();
-
-    function registerAlert() {
-        alert("Succesfully Registered. Redirecting to Login Page")
-        navigate("/Login")
     }
 
     return (
@@ -55,8 +114,10 @@ export default function SignUpStudent() {
 
                 <h1 className="studentRegistrationTitle">Student Registration</h1>
 
+                {errorMsg && <p className="loginError">{errorMsgText}</p>}
+
                 <div className="SignUpFormStudent">
-                    <form className="form" onSubmit={handleSubmit}>
+                    <form name="signUpForm" action="insertStudent.php" method="post" className="form" onSubmit={handleSubmit}>
                         <label className="studentLabel">Username</label>
                         <input 
                             className="formInput" 
@@ -67,7 +128,13 @@ export default function SignUpStudent() {
                             value={formData.username}
                             required
                             />
-                        <label className="studentLabel">Password</label>
+
+                        <div className="passwordTip">
+                            <span className="passwordTipText">Minimum eight characters. At least one uppercase letter, one lowercase letter and one number</span>
+                            <label className="studentLabel">Password</label>
+                            <span>*</span>
+                        </div>  
+                     
                         <input 
                             className="formInput"
                             type="password" 
@@ -94,7 +161,7 @@ export default function SignUpStudent() {
                             placeholder="Email"
                             name="email"
                             onChange={handleChange}
-                            value={formData.lastName}
+                            value={formData.email}
                             required
                             />
                          
@@ -142,12 +209,12 @@ export default function SignUpStudent() {
                             onChange={handleChange}
                             value={formData.year}
                             required  >
-                                <option>Year 1</option>
-                                <option>Year 2</option>
-                                <option>Year 3</option>
-                                <option>Year 4</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
                             </select>
-                        <button className="button-19" onClick={registerAlert}>Register</button>
+                        <button className="button-19" onClick={handleSubmit}>Register</button>
                     </form>
                 </div>
             </div>

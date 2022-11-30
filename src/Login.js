@@ -11,13 +11,26 @@ export default function Login() {
     
     const {id, setID} = useContext(idContext);
     
-    //True = Student account type         False = Teacher account type
-    const [accountType, setAccountType] = React.useState(true);
+    //Account type is changed whenever the radio button is changed by the use of State
+    const [accountType, setAccountType] = React.useState("Student");    
 
     const [errorMsg, setErrorMsg] = React.useState(false);
 
-    function changeAccountType() {
-        setAccountType(prevAccType => !prevAccType);
+    function changeAccountType(event) {
+        // setAccountType(prevAccType => !prevAccType);
+        if(event.target.value == "Student") {
+            setAccountType("Student")
+            console.log("Account: Student");
+        }
+        else if(event.target.value == "Tutor") {
+            setAccountType("Tutor")
+            console.log("Account: Tutor");
+        }
+        else {
+            setAccountType("Admin")
+            console.log("Account: Admin");
+        }
+       
     }
 
     const [loginCredentials, setLoginCredentials] = React.useState([{}]);
@@ -27,17 +40,24 @@ export default function Login() {
 
     const url = 'http://localhost/reactProject/login.php';
     const urlTutor = 'http://localhost/reactProject/loginTutor.php';
+    const urlAdmin = 'http://localhost/reactProject/loginAdmin.php';
      
     //Checks for account type and fetches the suitable data (Either Student or Tutor Lists)
     useEffect(()=> {
-        if (accountType) {
+        if (accountType == "Student") {
             axios.get(url).then(response=> response.data)
             .then((data) => {
                 setLoginCredentials(data)
             })
         }
-        else {
+        else if (accountType == "Tutor"){
             axios.get(urlTutor).then(response=> response.data)
+            .then((data) => {
+                setLoginCredentials(data)
+            })
+        }
+        else {
+            axios.get(urlAdmin).then(response=> response.data)
             .then((data) => {
                 setLoginCredentials(data)
             })
@@ -87,20 +107,17 @@ export default function Login() {
        
         if(password === formData.password && username === formData.username) {
             //When login is succesfull
-            if (accountType) {
+            if (accountType == "Student") {
                 console.log("login id: ")
                 console.log(id);
 
-                const urlID = 'http://localhost/reactProject/insertStudent.php';
                 setID(id);
                 localStorage.setItem('userID', id);
                 localStorage.setItem('accountType', "Student");
-                axios.post(urlID , id).then(response=> response.data)
-                  
                 navigate(`/studentInterface?id=${id}`);
                 
             }
-            else {
+            else if (accountType == "Tutor"){
                 console.log("login id: ")
                 console.log(id);
 
@@ -109,6 +126,15 @@ export default function Login() {
                 localStorage.setItem('accountType', "Tutor");
                 navigate(`/tutorInterface?id=${id}`);
                 
+            }
+            else {
+                console.log("login id: ")
+                console.log(id);
+
+                setID(id);
+                localStorage.setItem('userID', id);
+                localStorage.setItem('accountType', "Admin");
+                navigate(`/adminInterface?id=${id}`);
             }
         }
         else {
@@ -137,15 +163,18 @@ export default function Login() {
                     <img className="registrationImageLogin" src="background6.jpg"/>
                 </div>
 
-                {accountType ?
+                {accountType == "Student" &&
                 //TRUE CONDITION
                 <div className="loginForm">
                     <h2>Login to Your Account (Student)</h2>
                         <div className="toggle">
-                            <input type="radio" value="Student" id="one" onChange={changeAccountType} checked={accountType === true} required/>
+                            <input type="radio" value="Student" id="one" onChange={changeAccountType} checked={accountType == "Student"} required/>
                             <label htmlFor="one">Student</label>
-                            <input type="radio" value="Tutor" id="two" onChange={changeAccountType} checked={accountType=== false}/>
+                            <input type="radio" value="Tutor" id="two" onChange={changeAccountType} checked={accountType == "Tutor"}/>
                             <label htmlFor="two">Tutor</label>
+                            <input type="radio" value="Admin" id="three" onChange={changeAccountType} checked={accountType == "Admin"}/>
+                            <label htmlFor="three">Admin</label>
+                            
                         </div>
                     <form name="loginForm" action="login.php" method="post" className="form" onSubmit={loginValid}>
                         <label className="studentLabel">Username</label>
@@ -177,18 +206,59 @@ export default function Login() {
                     <p>Don't have an account?</p>
                     <Link to="/SignUp" className="">Sign Up</Link>
 
-                </div> 
+                </div> }
 
-                //FALSE CONDITION
-                :
-
+                
+                { accountType == "Tutor" &&
                   <div className="loginForm">
                   <h2>Login to Your Account (Tutor)</h2>
-                        <div className="toggle">v
-                            <input type="radio" value="Student" id="one" onChange={changeAccountType} checked={accountType === true} required/>
+                        <div className="toggle">
+                            <input type="radio" value="Student" id="one" onChange={changeAccountType} checked={accountType == "Student"} required/>
                             <label htmlFor="one">Student</label>
-                            <input type="radio" value="Tutor" id="two" onChange={changeAccountType} checked={accountType=== false}/>
+                            <input type="radio" value="Tutor" id="two" onChange={changeAccountType} checked={accountType == "Tutor"}/>
                             <label htmlFor="two">Tutor</label>
+                            <input type="radio" value="Admin" id="three" onChange={changeAccountType} checked={accountType == "Admin"}/>
+                            <label htmlFor="three">Admin</label>
+                        </div>
+                  <form name="loginForm" action="login.php" method="post" className="form" onSubmit={loginValid}>
+                      <label className="studentLabel">Username</label>
+                      <input 
+                          className="formInput"
+                          type="text"
+                          placeholder="Username"
+                          name="username"
+                          onChange={handleChange}
+                          value={formData.username}
+                          />
+                      <label className="studentLabel">Password</label>
+                      <input
+                          className="formInput"
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          onChange={handleChange}
+                          value={formData.password}
+                      />
+                      {errorMsg && <p className="loginError">Couldn't find your account, please enter correct credentials.</p>}
+                      <button type="submit" className="button-19" onClick={loginValid}>LOG IN</button>
+                     
+                  </form>
+                  <p>Don't have an account?</p>
+                  <Link to="/SignUp" className="">Sign Up</Link>
+
+              </div>
+                }
+
+            { accountType == "Admin" &&
+                  <div className="loginForm">
+                  <h2>Login to Your Account (Admin)</h2>
+                        <div className="toggle">
+                            <input type="radio" value="Student" id="one" onChange={changeAccountType} checked={accountType == "Student"} required/>
+                            <label htmlFor="one">Student</label>
+                            <input type="radio" value="Tutor" id="two" onChange={changeAccountType} checked={accountType == "Tutor"}/>
+                            <label htmlFor="two">Tutor</label>
+                            <input type="radio" value="Admin" id="three" onChange={changeAccountType} checked={accountType == "Admin"}/>
+                            <label htmlFor="three">Admin</label>
                         </div>
                   <form name="loginForm" action="login.php" method="post" className="form" onSubmit={loginValid}>
                       <label className="studentLabel">Username</label>

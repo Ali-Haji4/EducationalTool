@@ -13,6 +13,7 @@ body {
   /* padding: 20px 36px; */
   box-shadow: 0px 2.9825618267059326px 7.456404209136963px 0px #0000001A;
   min-width: 60vw;
+
 }
 
 .navBarInterface {
@@ -22,6 +23,8 @@ body {
   box-shadow: 0px 2.9825618267059326px 7.456404209136963px 0px #0000001A;
   justify-content: space-between;
   align-items: center;
+  
+ 
 }
 
 .navContainer {
@@ -41,11 +44,13 @@ body {
   margin-left: 30px;
   margin-top: auto;
   margin-bottom: auto;
+
 }
 
 .navLinkContainer {
   display: flex;
- 
+  /* This fixes the navbar items to not overlap on shrink */
+  flex-shrink: 0;
 }
 .navLinks {
   list-style: none;
@@ -622,7 +627,6 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
     text-decoration: none;
     text-align: center;
     font-size: 19px;
-   
     
   }
 
@@ -631,7 +635,7 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
   }
 
   ul li ul.dropDown {
-    width: 10%;
+    width: 10rem;
     background: #0088a9;
     position: absolute;
     z-index: 999;
@@ -784,19 +788,6 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
   
   }
 
-  
-/* .signUpPage {
-  height: 100vh;
-  background-image: url(/public/background2.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
+  /* TEST AREA FOR NAVBAR ------------------------------------------------------------------------ */
 
-/* .borderExperminet{
-  background-color: white;
-  border-radius: 50px;
-  width: 60%;
-  margin: auto;
-  padding: 20px;
-} */
+

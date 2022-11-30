@@ -3,6 +3,8 @@ import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { NavBarStudent, NavBarTutor } from "./NavBar";
 import { idContext } from "./ID_Context";
+
+
 export default function Profile() {
 
     //VARIABLE DECLARATION

@@ -11,6 +11,30 @@ export default function TutorInterface() {
 
     const {id, setID} = useContext(idContext);
 
+    //VARIABLE DECLARATION
+    const [accountType, setAccountType] = React.useState(true);
+    //Fetch userID from Local Storage
+    let userID = JSON.parse(localStorage.getItem("userID"));  
+    //gets the account type that was set in the login page from local storage
+    const getAccountType = localStorage.getItem("accountType");
+
+     //Check the account type form local storage to set the account type of the state
+     useEffect(()=>{
+        if(getAccountType == "Tutor") {
+            setAccountType(true);
+            console.log("Account set to Tutor");
+        }
+        else if (getAccountType == "Admin"){
+            setAccountType(false);
+            console.log("Account set to Admin");
+        }
+        else {
+            console.log("Account set to Student");
+        }
+    },[])
+
+
+    //Fetch the problems from the database
     useEffect(() => {
         axios.get(url).then(response=> response.data)
     .then((data) => {
@@ -21,6 +45,14 @@ export default function TutorInterface() {
     window.onload = function(){
         document.forms['idForm'].submit();
       }
+
+    function ViewProblem() {
+        console.log("Problem Viewing...")
+    }
+
+    function DeleteProblem() {
+        console.log("Deleting Problem....")
+    }
 
     return(
         <div>
@@ -65,7 +97,9 @@ export default function TutorInterface() {
                                         <div className="col col-4" data-label="a">{contact.title}</div> 
                                         <div className="col col-4" data-label="b">{contact.tutor}</div> 
                                         <div className="col col-4" data-label="c">{contact.created}</div> 
-                                        <div className="col col-4" data-label="Payment Status"><button className="messageBtn">View Problem</button></div>
+                                        <div className="col col-4" data-label="Payment Status"><button className="messageBtn" onClick={ViewProblem}>View Problem</button></div>
+                                        {   getAccountType == "Admin" &&
+                                            <div className="col col-4" data-label="Payment Status"><button className="messageBtn" onClick={DeleteProblem}>Delete Problem</button></div>}
                                     </li>
                                 ))}
                        

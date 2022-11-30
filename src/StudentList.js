@@ -22,17 +22,6 @@ import axios from "axios";
                     console.log(this.state.contacts)
                 })
                 }
-            
-            // List(props) {
-
-            //     return (
-            //         <ul>
-            //             {this.state.contacts?.map((contact, index) => (
-            //                 <li key={index}>{contact.username}</li>
-            //             ))}
-            //         </ul>
-            //     )
-            // }
 
             render() {
                 

@@ -10,11 +10,14 @@ import SignUpStudent from './SignUpStudent';
 import SignUpTutor from './SignUpTutor';
 import StudentInterface from './studentInterface';
 import TutorInterface from './tutorInterface';
+import AdminInterface from './adminInterface';
 import CreateProblem from './CreateProblem';
 import StudentList from './StudentList';
 import TutorList from './TutorList';
 import Profile from './Profile';
 import {idContext} from './ID_Context';
+import ManageUsers from './manageUsers';
+import ManageProblems from './manageProblems';
 
 function App() {
   const [id, setID] = React.useState();
@@ -32,10 +35,13 @@ function App() {
             <Route path="SignUpTutor" element={<SignUpTutor />} />
             <Route path="studentInterface" element={<StudentInterface />} />
             <Route path="tutorInterface" element={<TutorInterface />} />
+            <Route path="adminInterface" element={<AdminInterface />} />
             <Route path="CreateProblem" element={<CreateProblem />} />
             <Route path="StudentList" element={<StudentList />} />
             <Route path="TutorList" element={<TutorList />} />
             <Route path="Profile" element={<Profile />} />
+            <Route path="manageUsers" element={<ManageUsers />} />
+            <Route path="manageProblems" element={<ManageProblems />} />
           </Routes>
         </div>
       </div>

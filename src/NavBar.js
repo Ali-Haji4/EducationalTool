@@ -1,4 +1,4 @@
-import React , {useContext} from "react";
+import React , {useContext ,useEffect,useLayoutEffect , useState} from "react";
 import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 import { idContext } from "./ID_Context";
 
@@ -83,5 +83,47 @@ export function NavBarTutor() {
                 </Link>
             </div>
         </div>
+    )
+}
+
+export function NavbarAdmin() {
+
+    const navigate = useNavigate();
+
+    function Logout(){
+        localStorage.clear();
+        navigate("/");
+    }
+
+    return (
+        <div className="navBarInterface">
+             <Link to="/" >
+                    <button className="navHomeBtn">Poly Sphere</button>
+            </Link>
+            <nav className="navLinkContainer">
+                    <ul className="navLinks">
+                        <li><a href="/adminInterface">Reports</a></li>
+                        <li><a href="/manageUsers">Manage Users</a></li>
+                        <li><a href="/manageProblems">Manage Problems</a></li>
+                        <li><a href="/" onClick={Logout}>Logout</a></li>
+                    </ul>
+            </nav>
+        </div>
+    )
+}
+
+export function TestBar() {
+
+    const navigate = useNavigate();
+
+    function Logout(){
+        localStorage.clear();
+        navigate("/");
+    }
+
+
+      
+    return (
+        <div></div>
     )
 }

@@ -17,7 +17,7 @@ export default function ManageUsers() {
     //gets the account type that was set in the login page from local storage
     const getAccountType = localStorage.getItem("accountType");
     //Links the form to a variable by using a react hook
-    const {form, form2} = useRef();
+    const form= useRef();
     //URL of each account type list
     const urlStudents = 'http://localhost/reactProject/studentsMemberList.php';
     const urlTutors = 'http://localhost/reactProject/tutorsMemberList.php';
@@ -103,19 +103,18 @@ export default function ManageUsers() {
                                     </li>
                                         {/* <form action="manageUsers.php" method="POST"> */}
                                     {contacts?.map((contact, index) => (
+                                        <form ref={form} name="userIDForm" method="post" action="http://localhost/reactProject/manageUsers.php">
                                         <li className="table-row" key={index}>
                                             <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                             <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                             <div className="col col-3" data-label="Year">{contact.year}</div>
                                             <div className="col col-4" data-label="Email">{contact.email}</div>
                                             <div className="col col-4" data-label="Action"><button className="reportBtn" onClick={() => DeleteUser(contact.id)}>Delete</button></div> 
-                                            {/* <input type="hidden" id="userId" name="userId" value={contact.id}/> */}
 
-                                            <form ref={form} name="userIDForm" method="post" action="http://localhost/reactProject/manageUsers.php">
-                                                <input type="hidden" id="userID" name="userID" defaultValue={contact.id}/>
-                                            </form>
-
+                                            <input type="hidden" id="userID" name="userID" defaultValue={contact.id}/>
+                                            
                                         </li>
+                                        </form>
                                         
                                     ))}
                                         {/* </form> */}
@@ -145,17 +144,15 @@ export default function ManageUsers() {
 
                                     {
                                     contacts?.map((contact, index) => (
-                                        <li className="table-row" key={index}>
-                                            <div className="col col-1" data-label="Degree">{contact.full_name}</div>
-                                            <div className="col col-2" data-label="Subject">{contact.degree}</div>
-                                            <div className="col col-3" data-label="Year">{contact.email}</div>
-                                            <div className="col col-4" data-label="Action"><button className="messageBtn" onClick={() => DeleteTutor(contact.id)}>Delete</button></div> 
-                                   
-                                            <form id="formTutor" name="tutorIDForm" method="post" action="http://localhost/reactProject/manageTutors.php">
+                                        <form id="formTutor" name="tutorIDForm" method="post" action="http://localhost/reactProject/manageTutors.php" key={index}>
+                                            <li className="table-row" >
+                                                <div className="col col-1" data-label="Degree">{contact.full_name}</div>
+                                                <div className="col col-2" data-label="Subject">{contact.degree}</div>
+                                                <div className="col col-3" data-label="Year">{contact.email}</div>
+                                                <div className="col col-4" data-label="Action"><button className="messageBtn" onClick={() => DeleteTutor(contact.id)}>Delete</button></div> 
                                                 <input type="hidden" id="userIDD" name="userIDD" defaultValue={contact.id}/>
-                                            </form>
-
-                                        </li>
+                                            </li>
+                                        </form>
                                     ))}
                             </ul>
                     </div>}

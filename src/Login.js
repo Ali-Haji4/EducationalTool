@@ -98,12 +98,14 @@ export default function Login() {
                 let id1 = info.username;
                 let ps2 = info.password;
                 let userID = info.id;
-                handleSubmit(id1, ps2, userID);
+                let fullName = info.full_name;
+                let tutorDegree = info.degree;
+                handleSubmit(id1, ps2, userID, fullName, tutorDegree);
             })
         }
 }
 
-    function handleSubmit(username, password, id) {
+    function handleSubmit(username, password, id, fullName, tutorDegree) {
        
         if(password === formData.password && username === formData.username) {
             //When login is succesfull
@@ -114,6 +116,7 @@ export default function Login() {
                 setID(id);
                 localStorage.setItem('userID', id);
                 localStorage.setItem('accountType', "Student");
+                localStorage.setItem('fullName', fullName);
                 navigate(`/studentInterface?id=${id}`);
                 
             }
@@ -124,6 +127,8 @@ export default function Login() {
                 setID(id);
                 localStorage.setItem('userID', id);
                 localStorage.setItem('accountType', "Tutor");
+                localStorage.setItem('fullName', fullName);
+                localStorage.setItem('degree', tutorDegree);
                 navigate(`/tutorInterface?id=${id}`);
                 
             }

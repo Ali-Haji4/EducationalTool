@@ -788,6 +788,15 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
   
   }
 
+  .solveHeader {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .solveFooter {
+    display: flex;
+    justify-content: space-evenly;
+  }
   /* TEST AREA FOR NAVBAR ------------------------------------------------------------------------ */
 
 

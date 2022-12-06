@@ -1,10 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import {NavBarStudent} from "./NavBar";
 import axios from "axios";
-
-
-
 
     export default function StudentList() {
         
@@ -16,13 +13,14 @@ import axios from "axios";
 
         // This arrangement can be altered based on how we want the date's format to appear.
         let currentDate = `${day}-${month}-${year}`;
-        console.log(currentDate); // "17-6-2022"
 
         const getAccountType = localStorage.getItem("accountType");
+        const getAccountName = localStorage.getItem("fullName");
+        const [contacts, setContact] = React.useState([{}]);
         const [reportWindow, setReportWindow] = React.useState(false);
         const [reportID, setReportID] = React.useState(0);
         const [reportForm, setReportForm] = React.useState(
-            {title: "", submitted_by: "Ahmed" , account: getAccountType, body: "", submitted_on: currentDate,}
+            {title: "", submitted_by: getAccountName , account: getAccountType, body: "", submitted_on: currentDate}
             )
 
         function handleTextChange(event) {
@@ -34,37 +32,36 @@ import axios from "axios";
         }
 
         function handleSubmit(event) {
+           
             event.preventDefault();
             console.log(reportForm);
+          
+            alert("Report Succesfully Submitted Succesfully")
+            
             axios.post('http://localhost/reactProject/insertReport.php',reportForm) //fix this shiiiiit
             .then(res=> console.log(res.data))
-       
+
+            window.location.reload();
             }
         
-
-        function createReport(id){
+        //Yet to be functional-----------------------------------------------
+        function createReport(id, name, degree, year){
+            //The above arguments take the id, name, degree, and year of the reported student
             console.log("Creating report on user: " + id)
             setReportWindow(prevState => !prevState)
             setReportID(id);
             console.log(reportWindow);
         }
 
-        class Students extends React.Component{
-            state = {
-                contacts: []
-            }
-            
-            componentDidMount() {
-              
-                const url = 'http://localhost/reactProject/studentsMemberList.php';
-                axios.get(url).then(response=> response.data)
-                .then((data) => {
-                    this.setState({contacts: data})
-                    console.log(this.state.contacts)
-                })
-                }
+        const url = 'http://localhost/reactProject/studentsMemberList.php';
 
-            render() {
+        //Fetch the problems from the database
+        useEffect(() => {
+            axios.get(url).then(response=> response.data)
+            .then((data) => {
+                setContact(data)
+            })
+        }, [])
                 
                 return (
                     <div>
@@ -90,15 +87,16 @@ import axios from "axios";
                                 <div className="col col-4">Report</div>
                                 </li>
 
-                                {this.state.contacts?.map((contact, index) => (
+                                {contacts?.map((contact, index) => (
                                     <form key={index}>
                                         <li className="table-row" >
                                             <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                             <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                             <div className="col col-3" data-label="Year">{contact.year}</div>
                                             <div className="col col-4" data-label="Title"><button className="messageBtn">Message</button></div>
-                                            <div className="col col-4" data-label="Tutor"><button type="button" className="reportBtn" onClick={() => createReport(contact.id)}>Report</button></div>   
+                                            <div className="col col-4" data-label="Tutor"><button type="button" className="reportBtn" onClick={() => createReport(contact.id, contact.full_name, contact.degree, contact.year)}>Report</button></div>   
                                         </li>
+                                    
                                         {reportWindow && contact.id == reportID &&
                                             <div className="createReportBody">
                                                 <h2>Create Report:</h2>
@@ -113,6 +111,8 @@ import axios from "axios";
                                                     <button className="saveProfileBtn" onClick={handleSubmit}>Submit Report</button>
                                             </div>
                                         }
+                                        
+                                  
                                     </form>
                                 ))}
 
@@ -122,12 +122,4 @@ import axios from "axios";
                 )
                 
             }
-        }
-        
-     
-      return (
-     
-            <Students />
-      )
-        }
-
+  

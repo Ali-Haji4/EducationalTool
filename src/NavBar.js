@@ -26,7 +26,7 @@ export function NavBarStudent() {
                 <nav className="navLinkContainer">
                     <ul className="navLinks">
                         <li><a href="/">Home</a></li>
-                        <li><a href="">Problems</a></li>
+                        <li><a href={`/StudentProblems?id=${id}`}>Problems</a></li>
                         <li><a href="">Feedback</a></li>
                         <li className="memberDrop">
                             <a href="">Members</a>
@@ -66,7 +66,7 @@ export function NavBarTutor() {
                 <nav className="navLinkContainer">
                     <ul className="navLinks">
                         <li><a href="/">Home</a></li>
-                        <li><a href="">Problems</a></li>
+                        <li><a href="/tutorProblems">Problems</a></li>
                         <li><a href="">View Answers</a></li>
                         <li className="memberDrop">
                             <a href="">Members</a>
@@ -105,9 +105,11 @@ export function NavbarAdmin() {
                         <li><a href="/adminInterface">Reports</a></li>
                         <li><a href="/manageUsers">Manage Users</a></li>
                         <li><a href="/manageProblems">Manage Problems</a></li>
-                        <li><a href="/" onClick={Logout}>Logout</a></li>
                     </ul>
             </nav>
+            <div>
+                <a href="/" onClick={Logout}>Logout</a>
+            </div>
         </div>
     )
 }

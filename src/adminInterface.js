@@ -1,4 +1,4 @@
-import React , {Component, useRef, useState} from "react";
+import React , {Component, useRef, useState, useEffect} from "react";
 import { Link , useNavigate} from "react-router-dom";
 import {NavbarAdmin, NavBarStudent, TestBar} from "./NavBar";
 import StudentList from "./StudentList";
@@ -8,8 +8,20 @@ export default function AdmintInterface() {
     
     const [viewMode, setViewMode] = React.useState(false);
     const [viewID, setViewID] = React.useState(0);
+    const [reports, setReports] = React.useState([{}]);
+
     //Attack a reference to a form
     const form = useRef();
+
+     //Fetch the problems from the database
+     const url = 'http://localhost/reactProject/reportsList.php';
+     useEffect(() => {
+        axios.get(url).then(response=> response.data)
+    .then((data) => {
+        setReports(data);
+    })
+    }, [])
+
     //find a method to put it inside the class
     function viewReport(id) {
         
@@ -26,25 +38,6 @@ export default function AdmintInterface() {
                 alert("Report Deleted Succesfully")
         }
     }
-    
-    class Reports extends React.Component {
-        state = {
-            reports: []
-        }
-
-        componentDidMount() {
-                
-            const url = 'http://localhost/reactProject/reportsList.php';
-            axios.get(url).then(response=> response.data)
-            .then((data) => {
-                this.setState({reports: data})
-                console.log(this.state.reports)
-            })
-            }
-        
-        
-
-        render () {
             
             return(
                 <div>
@@ -67,7 +60,7 @@ export default function AdmintInterface() {
 
                             </li>
 
-                            {this.state.reports?.map((reports, index) => (
+                            {reports?.map((reports, index) => (
                                 <form ref={form} name="report" method="post" action="http://localhost/reactProject/manageReports.php" key={index}>
                                     <li className="table-row" >
                                     <div className="col col-1" data-label="">{reports.title}</div>
@@ -95,11 +88,3 @@ export default function AdmintInterface() {
                 </div>
             )
         }
-    }
-
-    return (
-        <Reports />
-    )
-
-
-}

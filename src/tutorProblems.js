@@ -1,11 +1,13 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { Link , useNavigate} from "react-router-dom";
-import {NavBarTutor} from "./NavBar";
 import axios from "axios";
 import { idContext } from "./ID_Context";
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { NavBarTutor } from "./NavBar";
 
-export default function TutorInterface() {
+export default function TutorProblems() {
 
+    
     const [contacts, setContacts] = React.useState([{}]);
     const url = 'http://localhost/reactProject/problemsList.php';
 
@@ -42,9 +44,9 @@ export default function TutorInterface() {
     })
     }, [])
     
-    window.onload = function(){
-        document.forms['idForm'].submit();
-      }
+    // window.onload = function(){
+    //     document.forms['idForm'].submit();
+    //   }
 
     function ViewProblem() {
         console.log("Problem Viewing...")
@@ -57,7 +59,7 @@ export default function TutorInterface() {
     return(
         <div>
             <NavBarTutor/>
-            {/* <div className="tutorInterfaceBody">
+            <div className="tutorInterfaceBody">
                 
                 <div className="problemsList">
 
@@ -106,10 +108,11 @@ export default function TutorInterface() {
                     </ul>
                 </div>
 
-                <form action="userProfile.php" method="post" name="idForm">
+                {/* <form action="userProfile.php" method="post" name="idForm">
                      <input type="hidden" id="tutorID" name="tutorID" value={id}/>
-                </form>
-            </div> */}
+                </form> */}
+            </div>
         </div>
     )
+    
 }

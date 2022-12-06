@@ -18,6 +18,9 @@ import Profile from './Profile';
 import {idContext} from './ID_Context';
 import ManageUsers from './manageUsers';
 import ManageProblems from './manageProblems';
+import StudentProblems from './studentProblems';
+import TutorProblems from './tutorProblems';
+import StudentSolve from './studentSolve';
 
 function App() {
   const [id, setID] = React.useState();
@@ -42,6 +45,9 @@ function App() {
             <Route path="Profile" element={<Profile />} />
             <Route path="manageUsers" element={<ManageUsers />} />
             <Route path="manageProblems" element={<ManageProblems />} />
+            <Route path="studentProblems" element={<StudentProblems />} />
+            <Route path="studentSolve" element={<StudentSolve />} />
+            <Route path="tutorProblems" element={<TutorProblems />} />
           </Routes>
         </div>
       </div>

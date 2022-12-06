@@ -149,7 +149,7 @@ export default function ManageUsers() {
                                                 <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                                 <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                                 <div className="col col-3" data-label="Year">{contact.email}</div>
-                                                <div className="col col-4" data-label="Action"><button className="messageBtn" onClick={() => DeleteTutor(contact.id)}>Delete</button></div> 
+                                                <div className="col col-4" data-label="Action"><button className="reportBtn" onClick={() => DeleteTutor(contact.id)}>Delete</button></div> 
                                                 <input type="hidden" id="userIDD" name="userIDD" defaultValue={contact.id}/>
                                             </li>
                                         </form>

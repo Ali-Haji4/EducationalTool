@@ -24,22 +24,24 @@ export default function Profile() {
     {password: "", firstName: "", lastName: "", fullName: "", email: "", year: "0", degree: ""}
     )
 
+    const [postURL, setPostURL] = React.useState("");
     //Check the account type form local storage to set the account type of the state
     useEffect(()=>{
         if(getAccountType == "Student") {
             setAccountType(true);
+            setPostURL("http://localhost/reactProject/updateStudent.php")
             console.log("Account set to Student");
+            console.log("url: " + postURL);
         }
-        else {
+        else if (getAccountType == "Tutor"){
             setAccountType(false);
+            setPostURL("http://localhost/reactProject/updateTutor.php")
             console.log("Account set to Tutor");
+            console.log("url: " + postURL);
         }
     },[])
 
-    //FOR TESTING -> DELETE LATER
-    console.log("my passed id " + id);
     console.log("React refreshing count");
-    
     
     function handleChange(event) {
         setFormData(prevFormData=> {
@@ -56,12 +58,6 @@ export default function Profile() {
 
     function deleteAccount() {
         console.log("Deleting");
-
-        //The axios delet method is not needed at the moment -> Delete once empty user creation bug gets resolved
-            // axios.delete('http://localhost/reactProject/deleteUser.php').then(function(response) {
-            //     console.log(response.data);
-            //     console.log("boop I am dumb");
-            // })
           
         if(window.confirm("Press Ok To Verify Delete Account Action") == true) {
             form.current.submit();  
@@ -130,6 +126,7 @@ export default function Profile() {
     //Replace the Student url with Student Member List later because they are basically the same
     const urlStudent = 'http://localhost/reactProject/userProfile.php';
     const urlTutor = 'http://localhost/reactProject/tutorsMemberList.php';
+    
     useEffect(() => {
         if(accountType) {
             axios.get(urlStudent).then(response=> response.data)
@@ -156,7 +153,7 @@ export default function Profile() {
             })
         }
        
-    }, [])
+    }, [accountType])
 
     profile.forEach(element => {
         if(element.id == userID) {
@@ -195,7 +192,8 @@ export default function Profile() {
                         </form>
                         
                             {editingMode ? 
-                            <form  name="editDataForm" className="profileDataView" method="post" action="http://localhost/reactProject/updateStudent.php">
+                            // <form  name="editDataForm" className="profileDataView" method="post" action="http://localhost/reactProject/updateStudent.php"></form>
+                            <form  name="editDataForm" className="profileDataView" method="post" action={postURL}>
 
                                 <input type="hidden" id="userID" name="userID" defaultValue={userID}/>
 
@@ -242,15 +240,19 @@ export default function Profile() {
                                     defaultValue={formData.password}
                                 />
 
-                                <label className="studentLabel">Year</label>
-                                <input
-                                    className="formInput"
-                                    type="number"
-                                    placeholder="Year"
-                                    name="year"
-                                    onChange={handleChange}
-                                    defaultValue={formData.year}
-                                />
+                                { accountType &&
+                                <>
+                                    <label className="studentLabel">Year</label>
+                                    <input
+                                        className="formInput"
+                                        type="number"
+                                        placeholder="Year"
+                                        name="year"
+                                        onChange={handleChange}
+                                        defaultValue={formData.year}
+                                    />
+                                </>
+                                }
 
                                 <button className="saveProfileBtn" onClick={submitChange}>Save Changes</button>
                             </form>
@@ -261,7 +263,7 @@ export default function Profile() {
                                     accountType ?
                                     <h2 className="profileDegree">{formData.degree} Student</h2>
                                                 :
-                                    <h2 className="profileDegree">{formData.degree}</h2>            
+                                    <h2 className="profileDegree">{formData.degree} Tutor</h2>            
                                 }
                                 <h2 className="profileFirstName">First Name: {formData.firstName}</h2>
                                 <h2 className="profileLastName">Last Name: {formData.lastName}</h2>

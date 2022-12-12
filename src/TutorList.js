@@ -5,7 +5,7 @@ import axios from "axios";
 import { NavBarStudent } from "./NavBar";
 
 export default function TutorList() { 
-
+    const getAccountType = localStorage.getItem("accountType");
     class Tutors extends React.Component{
         state = {
             contacts: []
@@ -23,7 +23,7 @@ export default function TutorList() {
         render() {
             return (
                 <div>
-                <NavBarStudent/>
+                    {getAccountType == "Student" ?<NavBarStudent/> : <NavBarTutor/>}
                     <div className="problemListTutorHead">
                         <h2>Tutors List</h2>
                         <div className="main">

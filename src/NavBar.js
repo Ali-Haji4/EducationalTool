@@ -67,7 +67,7 @@ export function NavBarTutor() {
                     <ul className="navLinks">
                         <li><a href="/">Home</a></li>
                         <li><a href="/tutorProblems">Problems</a></li>
-                        <li><a href="">View Answers</a></li>
+                        <li><a href="/tutorViewAnswers">View Answers</a></li>
                         <li className="memberDrop">
                             <a href="">Members</a>
                             <ul className="dropDown">

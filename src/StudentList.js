@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link , useNavigate} from "react-router-dom";
-import {NavBarStudent} from "./NavBar";
+import {NavBarStudent, NavBarTutor} from "./NavBar";
 import axios from "axios";
 
     export default function StudentList() {
@@ -19,15 +19,20 @@ import axios from "axios";
         const [contacts, setContact] = React.useState([{}]);
         const [reportWindow, setReportWindow] = React.useState(false);
         const [reportID, setReportID] = React.useState(0);
+        const [reported_userName, setReportedUserName] = React.useState("");
+        const [reported_userID, setReported_userID] = React.useState(0);
+        const [reported_userAccount, setReportedUserAccount] = React.useState("Student");
         const [reportForm, setReportForm] = React.useState(
-            {title: "", submitted_by: getAccountName , account: getAccountType, body: "", submitted_on: currentDate}
+            {title: "", submitted_by: getAccountName , account: getAccountType, body: "", submitted_on: currentDate, reported_userName: reported_userName, reported_userID: reported_userID, reported_userAccount: reported_userAccount}
             )
 
         function handleTextChange(event) {
             setReportForm(prevFormData=> {
                 return {
                     ...prevFormData,
-                    [event.target.name] : event.target.value}
+                    [event.target.name] : event.target.value,
+                    "reported_userName" : reported_userName,
+                    "reported_userID" : reported_userID}
             })
         }
 
@@ -45,12 +50,13 @@ import axios from "axios";
             }
         
         //Yet to be functional-----------------------------------------------
-        function createReport(id, name, degree, year){
+        function createReport(id, name){
             //The above arguments take the id, name, degree, and year of the reported student
             console.log("Creating report on user: " + id)
             setReportWindow(prevState => !prevState)
             setReportID(id);
-            console.log(reportWindow);
+            setReported_userID(id);
+            setReportedUserName(name)
         }
 
         const url = 'http://localhost/reactProject/studentsMemberList.php';
@@ -65,7 +71,7 @@ import axios from "axios";
                 
                 return (
                     <div>
-                    <NavBarStudent/>
+                    {getAccountType == "Student" ?<NavBarStudent/> : <NavBarTutor/>}
                         <div className="problemListTutorHead">
                             <h2>Students List</h2>
                             <div className="main">
@@ -94,7 +100,7 @@ import axios from "axios";
                                             <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                             <div className="col col-3" data-label="Year">{contact.year}</div>
                                             <div className="col col-4" data-label="Title"><button className="messageBtn">Message</button></div>
-                                            <div className="col col-4" data-label="Tutor"><button type="button" className="reportBtn" onClick={() => createReport(contact.id, contact.full_name, contact.degree, contact.year)}>Report</button></div>   
+                                            <div className="col col-4" data-label="Tutor"><button type="button" className="reportBtn" onClick={() => createReport(contact.id, contact.full_name)}>Report</button></div>   
                                         </li>
                                     
                                         {reportWindow && contact.id == reportID &&
@@ -107,7 +113,7 @@ import axios from "axios";
                                                     <input type="text" value={reportForm.body} id="two" name="body" onChange={handleTextChange} required/>
                                                     <label htmlFor="three">Attach Image (Optional)</label>
                                                     <input type="file" id="three" name="reportImg" accept="image/png, image/jpeg"></input>
-
+                                                  
                                                     <button className="saveProfileBtn" onClick={handleSubmit}>Submit Report</button>
                                             </div>
                                         }

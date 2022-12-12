@@ -22,7 +22,7 @@ export default function AdmintInterface() {
     })
     }, [])
 
-    //find a method to put it inside the class
+    //find a method to put it inside the className
     function viewReport(id) {
         
         setViewID(id);
@@ -60,7 +60,10 @@ export default function AdmintInterface() {
 
                             </li>
 
+                    
+                           
                             {reports?.map((reports, index) => (
+                          
                                 <form ref={form} name="report" method="post" action="http://localhost/reactProject/manageReports.php" key={index}>
                                     <li className="table-row" >
                                     <div className="col col-1" data-label="">{reports.title}</div>
@@ -70,18 +73,28 @@ export default function AdmintInterface() {
                                     <div className="col col-4" data-label=""><button type="button" className="messageBtn" onClick={() => viewReport(reports.id)}>View</button></div>
                                     <div className="col col-4" data-label=""><button className="reportBtn" onClick={() => deleteReport(reports.id)}>Delete</button></div>
                                     <input type="hidden" id="reportID" name="reportID" defaultValue={reports.id}/>
-                                    </li>
+                                    </li>  
 
                                     {viewMode && reports.id == viewID && 
-                                    <div className="viewReportBody">
-                                        <h2>Report Body:</h2>
-                                        <h3>{reports.body}</h3>
-                                        <button className="saveProfileBtn">Message Sender</button>
-                                    </div>        
-                                    }
+                                    <div className="viewReportBody"> 
+                                        <h2>{reports.title}</h2>
+                                        <h4>{reports.body}</h4>
+                                    <button className="saveProfileBtn">Message Sender</button>
+                                    </div>}
+                                   
+
+                                       
+
+
+                                       
+                                    
+                                       
+                                  
                                 </form>
+                                
                                 ))}
-                        
+                              
+                                  
                         </ul>
                         </div>
                     </div>

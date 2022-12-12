@@ -95,6 +95,7 @@ export default function ManageUsers() {
                         <ul className="responsive-table">
 
                                     <li className="table-header">
+                                    <div className="col col-1">ID</div>
                                     <div className="col col-1">Name</div>
                                     <div className="col col-2">Degree</div>
                                     <div className="col col-3">Year</div>
@@ -105,6 +106,7 @@ export default function ManageUsers() {
                                     {contacts?.map((contact, index) => (
                                         <form ref={form} name="userIDForm" method="post" action="http://localhost/reactProject/manageUsers.php">
                                         <li className="table-row" key={index}>
+                                            <div className="col col-1" data-label="Degree">{contact.id}</div>
                                             <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                             <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                             <div className="col col-3" data-label="Year">{contact.year}</div>
@@ -136,6 +138,7 @@ export default function ManageUsers() {
                         <ul className="responsive-table">
 
                                     <li className="table-header">
+                                    <div className="col col-1">ID</div>
                                     <div className="col col-1">Name</div>
                                     <div className="col col-2">Degree</div>
                                     <div className="col col-3">Email</div>
@@ -146,6 +149,7 @@ export default function ManageUsers() {
                                     contacts?.map((contact, index) => (
                                         <form id="formTutor" name="tutorIDForm" method="post" action="http://localhost/reactProject/manageTutors.php" key={index}>
                                             <li className="table-row" >
+                                            <div className="col col-1" data-label="Degree">{contact.id}</div>
                                                 <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                                 <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                                 <div className="col col-3" data-label="Year">{contact.email}</div>

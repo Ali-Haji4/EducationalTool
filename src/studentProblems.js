@@ -31,8 +31,13 @@ export default function StudentProblems() {
         console.log("Problem Viewing...")
     }
 
-    function forwardIndex(index) {
+    function forwardIndex(index, id, title, subject, year, tutor_id) {
         localStorage.setItem('problemIndex', index);
+        localStorage.setItem('problemID', id);
+        localStorage.setItem('problemTitle', title);
+        localStorage.setItem('problemSubject', subject);
+        localStorage.setItem('problemYear', year);
+        localStorage.setItem('problemTutorID', tutor_id);
     }
     return(
         <div>
@@ -63,11 +68,13 @@ export default function StudentProblems() {
                                         <div className="col col-4" data-label="a">{contact.title}</div> 
                                         <div className="col col-4" data-label="b">{contact.tutor}</div> 
                                         <div className="col col-4" data-label="c">{contact.created}</div> 
-                                        <div className="col col-4" data-label="Payment Status"><button className="messageBtn" onClick={ViewProblem}>View Problem</button></div>
-
+                                        <div className="col col-4" data-label="Payment Status"> 
                                             <Link to={`/studentSolve/?${index}`}>
-                                                <button className="navProfileBtn" onClick={() => forwardIndex(index)}>Solve</button>
+                                                <button className="messageBtn" onClick={() => forwardIndex(index, contact.id, contact.title, contact.subject, contact.year, contact.tutor_id)}>Solve</button>
                                             </Link>
+                                        </div>
+                                        {/* <button className="messageBtn" onClick={ViewProblem}>View Problem</button> */}
+                                           
                                       
                                    
                                     </li>

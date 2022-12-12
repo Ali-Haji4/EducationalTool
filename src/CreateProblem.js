@@ -17,13 +17,14 @@ export default function CreateProblem() {
      //gets the full name and degree from local storage
      const getFullName = localStorage.getItem("fullName");
      const getDegree = localStorage.getItem("degree");
+     const getTutorID = localStorage.getItem("userID");
 
      //List of subjects
      const [subjectsList, setSubjectsList] = React.useState([{}]);
 
     //Tutor and Degree should automatically be fetched by using local or session storage
     const [problemData, setProblemData] = React.useState(
-        {degree: getDegree, subject: "", year: "", title: "", tutor: getFullName, created: currentDate, content: "", file: ""}
+        {degree: getDegree, subject: "", year: "", title: "", tutor: getFullName, created: currentDate, content: "", file: "", tutor_id: getTutorID}
         )
     
     //URL of subjects database

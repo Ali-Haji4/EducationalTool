@@ -7,7 +7,6 @@ const ForwardedProblem = (props) => {
 
         <div>
       
-
             {contacts?.map((contact, index) => (
                    <div key={index}>
 

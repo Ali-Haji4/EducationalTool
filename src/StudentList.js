@@ -59,6 +59,10 @@ import axios from "axios";
             setReportedUserName(name)
         }
 
+        function closeReport() {
+            setReportWindow(prevState => !prevState)
+        }
+
         const url = 'http://localhost/reactProject/studentsMemberList.php';
 
         //Fetch the problems from the database
@@ -105,16 +109,23 @@ import axios from "axios";
                                     
                                         {reportWindow && contact.id == reportID &&
                                             <div className="createReportBody">
-                                                <h2>Create Report:</h2>
+                                                <h2 className="createReportHeader">Create Report</h2>
 
-                                                    <label htmlFor="one">Title</label>
-                                                    <input type="text" value={reportForm.title} id="one" name="title" onChange={handleTextChange} required/>
-                                                    <label htmlFor="two">Body</label>
-                                                    <input type="text" value={reportForm.body} id="two" name="body" onChange={handleTextChange} required/>
-                                                    <label htmlFor="three">Attach Image (Optional)</label>
-                                                    <input type="file" id="three" name="reportImg" accept="image/png, image/jpeg"></input>
-                                                  
-                                                    <button className="saveProfileBtn" onClick={handleSubmit}>Submit Report</button>
+                                                    <div>
+                                                        {/* <label htmlFor="one">Title</label> */}
+                                                        <input type="text" value={reportForm.title} id="one" name="title" onChange={handleTextChange} className="createReportTitle" placeholder="Title" required/>
+                                                        <label htmlFor="three">Attach Image (Optional)</label>
+                                                        <input type="file" id="three" name="reportImg" accept="image/png, image/jpeg"></input>
+                                                    </div>
+
+                                                    {/* <label htmlFor="two">Body</label> */}
+                                                    {/* <input type="text" value={reportForm.body} id="two" name="body" onChange={handleTextChange} className="createReportContent" placeholder="Report Body" required/> */}
+                                                    <textarea value={reportForm.body} id="two" name="body" onChange={handleTextChange} className="createReportContent" placeholder="Report Body" required></textarea>
+                                                    <div>
+                                                        <button className="messageSenderBtn" onClick={handleSubmit}>Submit Report</button>
+                                                        <button className="messageSenderBtn" onClick={closeReport}>Close</button>
+                                                    </div>
+                                                
                                             </div>
                                         }
                                         

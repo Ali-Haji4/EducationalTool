@@ -32,6 +32,15 @@ export default function ManageProblems () {
             }
     }
 
+    function forwardIndex(index, id, title, subject, year, tutor_id) {
+        localStorage.setItem('problemIndex', index);
+        localStorage.setItem('problemID', id);
+        localStorage.setItem('problemTitle', title);
+        localStorage.setItem('problemSubject', subject);
+        localStorage.setItem('problemYear', year);
+        localStorage.setItem('problemTutorID', tutor_id);
+    }
+
     return (
         <div>
             <NavbarAdmin/>
@@ -50,6 +59,7 @@ export default function ManageProblems () {
                             <div className="col col-4">Tutor</div>
                             <div className="col col-4">Created</div>
                             <div className="col col-4">Action</div>
+                            <div className="col col-4">Manage</div>
                         </li>
 
                         {problems?.map((problem, index) => (
@@ -61,7 +71,12 @@ export default function ManageProblems () {
                                     <div className="col col-4" data-label="Title">{problem.title}</div> 
                                     <div className="col col-4" data-label="Tutor">{problem.tutor}</div> 
                                     <div className="col col-4" data-label="Created">{problem.created}</div> 
-                                    <div className="col col-4" data-label="Action"><button className="reportBtn" onClick={() => DeleteProblem(problem.id)}>Delete Problem</button></div>
+                                    <div className="col col-4" data-label="Action"> 
+                                        <Link to={`/viewProblem/?${index}`}>
+                                            <button className="messageBtn" onClick={() => forwardIndex(index, problem.id, problem.title, problem.subject, problem.year, problem.tutor_id)}>View Problem</button>
+                                        </Link>
+                                    </div>
+                                    <div className="col col-4" data-label="Manage"><button className="reportBtn" onClick={() => DeleteProblem(problem.id)}>Delete Problem</button></div>
                                     <input type="hidden" id="problemID" name="problemID" defaultValue={problem.id}/>
                                 </li>
                             </form>

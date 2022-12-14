@@ -44,17 +44,26 @@ export default function TutorProblems() {
     })
     }, [])
     
-    // window.onload = function(){
-    //     document.forms['idForm'].submit();
-    //   }
 
     function ViewProblem() {
         console.log("Problem Viewing...")
     }
 
     function DeleteProblem() {
+        //HERE HE CAN DELETE HIS OWN CREATED PROBLEMS
         console.log("Deleting Problem....")
     }
+
+    
+    function forwardIndex(index, id, title, subject, year, tutor_id) {
+        localStorage.setItem('problemIndex', index);
+        localStorage.setItem('problemID', id);
+        localStorage.setItem('problemTitle', title);
+        localStorage.setItem('problemSubject', subject);
+        localStorage.setItem('problemYear', year);
+        localStorage.setItem('problemTutorID', tutor_id);
+    }
+
 
     return(
         <div>
@@ -66,30 +75,21 @@ export default function TutorProblems() {
                     <div className="problemListTutorHead">
                         <h2>Problems List</h2>
                         <Link to="/CreateProblem">
-                        <button className="button-19">Create Problem</button>
+                            <button className="button-19">Create Problem</button>
                         </Link>
                     </div>
 
                     <ul className="responsive-table">
                         <li className="table-header">
-                        <div className="col col-1">Degree</div>
-                        <div className="col col-2">Subject</div>
-                        <div className="col col-3">Year</div>
-                        <div className="col col-4">Title</div>
-                        <div className="col col-4">Tutor</div>
-                        <div className="col col-4">Created</div>
-                        <div className="col col-4">Action</div>
-                    
+                            <div className="col col-1">Degree</div>
+                            <div className="col col-2">Subject</div>
+                            <div className="col col-3">Year</div>
+                            <div className="col col-4">Title</div>
+                            <div className="col col-4">Tutor</div>
+                            <div className="col col-4">Created</div>
+                            <div className="col col-4">Action</div>
                         </li>
-                        <li className="table-row">
-                        <div className="col col-1" data-label="Degree">IT</div>
-                        <div className="col col-2" data-label="Subject">Web Fundementals</div>
-                        <div className="col col-3" data-label="Year">4</div>
-                        <div className="col col-4" data-label="Title">Pending</div>
-                        <div className="col col-4" data-label="Tutor">Pending</div>
-                        <div className="col col-4" data-label="Created">Pending</div>
-                        <div className="col col-4" data-label="Payment Status"><button className="messageBtn">View Problem</button></div>
-                        </li>
+                  
 
                         {contacts?.map((contact, index) => (
                                     <li className="table-row" key={index}>
@@ -99,9 +99,11 @@ export default function TutorProblems() {
                                         <div className="col col-4" data-label="a">{contact.title}</div> 
                                         <div className="col col-4" data-label="b">{contact.tutor}</div> 
                                         <div className="col col-4" data-label="c">{contact.created}</div> 
-                                        <div className="col col-4" data-label="Payment Status"><button className="messageBtn" onClick={ViewProblem}>View Problem</button></div>
-                                        {   getAccountType == "Admin" &&
-                                            <div className="col col-4" data-label="Payment Status"><button className="messageBtn" onClick={DeleteProblem}>Delete Problem</button></div>}
+                                        <div className="col col-4" data-label="Payment Status"> 
+                                        <Link to={`/viewProblem/?${index}`}>
+                                                <button className="messageBtn" onClick={() => forwardIndex(index, contact.id, contact.title, contact.subject, contact.year, contact.tutor_id)}>View Problem</button>
+                                            </Link>
+                                        </div>
                                     </li>
                                 ))}
                        

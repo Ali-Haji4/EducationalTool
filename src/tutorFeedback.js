@@ -86,10 +86,12 @@ export default function TutorFeedback() {
                                         <h3>{problem.tutor}</h3>
                                     </div>
                                 
-                                    <h2>Problem</h2>
+                                    <div className="seven">
+                                        <h1>Problem</h1>
+                                    </div>
 
                                     <div className="solveProblemBody">
-                                        <div className="col col-4" data-label="b">{problem.content}</div> 
+                                        <div className="problemTextStyle">{problem.content}</div> 
                                     </div>
                                 
                                 </div>
@@ -100,12 +102,15 @@ export default function TutorFeedback() {
                 </div>
 
                 <div className="feedbackSolutionView">
-                    <h2>Solution</h2>
+                    <div className="seven">
+                        <h1>Solution</h1>
+                    </div>
+                   
                     {answers?.map((answer, index) => (
                                 <div key={index}>
                                     {index == getProblemIndex  && 
-                                        <div className="solveHeader">
-                                            <h3>{answer.answer_text}</h3>
+                                        <div className="solveProblemBody">
+                                            <div className="problemTextStyle">{answer.answer_text}</div>
                                         </div>
                                     }
                                 </div>
@@ -113,7 +118,9 @@ export default function TutorFeedback() {
                 </div>
 
                 <div className="feedbackSection">
-                    <h2>Feedback</h2>
+                    <div className="seven">
+                        <h1>Feedback</h1>
+                    </div>
 
                     <label className="studentLabel">Comment #1</label>
                             <input 
@@ -163,8 +170,8 @@ export default function TutorFeedback() {
             </div>
             
             <div className="solveFooter">
-                <button className="submitAnswerBtn" onClick={submitFeedback}>Submit Feedback</button>
-                <button className="reportBtn">Exit</button>
+                <button className="button-12" onClick={submitFeedback}>Submit Feedback</button>
+                <button className="button-13">Exit</button>
             </div>
         </div>
     )

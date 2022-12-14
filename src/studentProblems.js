@@ -39,6 +39,7 @@ export default function StudentProblems() {
         localStorage.setItem('problemYear', year);
         localStorage.setItem('problemTutorID', tutor_id);
     }
+    
     return(
         <div>
             <NavBarStudent/>

@@ -23,6 +23,7 @@ import TutorProblems from './tutorProblems';
 import StudentSolve from './studentSolve';
 import TutorViewAnswers from './tutorViewAnswers';
 import TutorFeedback from './tutorFeedback';
+import ViewProblem from './viewProblem';
 
 function App() {
   const [id, setID] = React.useState();
@@ -52,6 +53,7 @@ function App() {
             <Route path="tutorProblems" element={<TutorProblems />} />
             <Route path="tutorViewAnswers" element={<TutorViewAnswers />} />
             <Route path="tutorFeedback" element={<TutorFeedback />} />
+            <Route path="viewProblem" element={<ViewProblem />} />
           </Routes>
         </div>
       </div>

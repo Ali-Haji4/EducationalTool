@@ -41,6 +41,7 @@ export default function AdmintInterface() {
             
             return(
                 <div>
+                    <link rel="stylesheet" href="https://fonts.google.com/specimen/Oswald" />
                     <NavbarAdmin/>
                     <div className="adminInterfaceBody">
                     <div className="problemsList">
@@ -77,9 +78,19 @@ export default function AdmintInterface() {
 
                                     {viewMode && reports.id == viewID && 
                                     <div className="viewReportBody"> 
-                                        <h2>{reports.title}</h2>
-                                        <h4>{reports.body}</h4>
-                                    <button className="saveProfileBtn">Message Sender</button>
+                                        <div className="reportData">
+                                            <a className="reportTitle">{reports.title}</a>
+                                            <p className="reportBody">{reports.body}</p>
+                                            <button className="messageSenderBtn">MESSAGE SENDER</button>
+                                        </div>
+                                    
+                                        <div className="reportedUserData">
+                                            <p className="reportedUserTitle">Reported User:</p>
+                                            <a className="reportedBody">{reports.reported_userName}</a><br/>
+                                            <a className="reportedBody">{reports.reported_userAccount}</a><br/>
+                                            <a className="reportedBody">ID: {reports.reported_userID}</a>
+                                            
+                                        </div>
                                     </div>}
                                    
 

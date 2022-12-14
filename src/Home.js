@@ -21,7 +21,7 @@ export default function Home() {
 
         <div className="navigationBar">
             <h1 className="websiteName">Poly Sphere</h1>
-            <></>
+            <img src="polyLogo.png"/>
             <button type="button" className="loginButton2" onClick={navigateToLogin}>Login</button>
             {/* <Link to="Login" className="loginButton2">Login</Link> */}
         </div>

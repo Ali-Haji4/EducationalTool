@@ -27,7 +27,7 @@ export function NavBarStudent() {
                     <ul className="navLinks">
                         <li><a href="/">Home</a></li>
                         <li><a href={`/StudentProblems?id=${id}`}>Problems</a></li>
-                        <li><a href="">Feedback</a></li>
+                        <li><a href={`/studentFeedback?id=${id}`}>Feedback</a></li>
                         <li className="memberDrop">
                             <a href="">Members</a>
                             <ul className="dropDown">

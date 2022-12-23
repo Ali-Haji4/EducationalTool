@@ -24,6 +24,8 @@ import StudentSolve from './studentSolve';
 import TutorViewAnswers from './tutorViewAnswers';
 import TutorFeedback from './tutorFeedback';
 import ViewProblem from './viewProblem';
+import StudentFeedback from './studentFeedback';
+import StudentReview from './studentReview';
 
 function App() {
   const [id, setID] = React.useState();
@@ -50,6 +52,8 @@ function App() {
             <Route path="manageProblems" element={<ManageProblems />} />
             <Route path="studentProblems" element={<StudentProblems />} />
             <Route path="studentSolve" element={<StudentSolve />} />
+            <Route path="studentFeedback" element={<StudentFeedback />} />
+            <Route path="studentReview" element={<StudentReview />} />
             <Route path="tutorProblems" element={<TutorProblems />} />
             <Route path="tutorViewAnswers" element={<TutorViewAnswers />} />
             <Route path="tutorFeedback" element={<TutorFeedback />} />

@@ -201,6 +201,7 @@ export default function SignUpTutor() {
                                 <option>Logistics Tutor</option>
                                 <option>Visual Design Tutor</option>
                                 <option>Web Media Tutor</option>
+                                <option>English Communication Tutor</option>
                     </select>
                     
                     <button type="submit" className="button-19" onClick={handleSubmit}>Register</button>

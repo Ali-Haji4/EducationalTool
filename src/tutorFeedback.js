@@ -5,6 +5,7 @@ import axios from "axios";
 import { idContext } from "./ID_Context";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ForwardedProblem from "./ForwardedProblem";
+import ForwardedAnswer from "./ForwardedAnswer";
 
 export default function TutorFeedback() {
 
@@ -22,19 +23,20 @@ export default function TutorFeedback() {
     const getProblemIndex = localStorage.getItem("problemIndex");
     const getProblemID = localStorage.getItem("problemID");
     const getFullName = localStorage.getItem("fullName");
-    const getStudentID = localStorage.getItem("userID");
+    const getStudentID = localStorage.getItem("problemStudentID");
     const getProblemTitle = localStorage.getItem("problemTitle");
     const getProblemSubject = localStorage.getItem("problemSubject");
     const getProblemYear = localStorage.getItem("problemYear");
-    const getProblemTutorID = localStorage.getItem("problemTutorID");
+    const getUserID = localStorage.getItem("userID");
+    const getAnswerID = localStorage.getItem("answerID");
 
-    const [problems, setProblems] = React.useState([{}]);
+    const [contacts, setContacts] = React.useState([{}]);
     const [answers, setAnswers] = React.useState([{}]);
     const [feedback, setFeedback] = React.useState({
-        grade: 0, comment1: "", comment2: "", comment3: ""
+        title: getProblemTitle, tutor_name: getFullName, created: currentDate, problem_id: getProblemID, answer_id: getAnswerID, student_id: getStudentID, tutor_id: getUserID, total_grade: 0, comment1: "", comment2: "", comment3: "", comment4: "", comment5: "", title1: "", title2: "", title3: "", title4: "", title5: "", grade1: 0, grade2: 0, grade3: 0, grade4: 0, grade5: 0
     });
     const [answerData, setAnswerData] = React.useState({
-        title: getProblemTitle, student: getFullName, answer_text: "", submitted_on: currentDate, problem_id: getProblemID, student_id: getStudentID, subject: getProblemSubject, year: getProblemYear, tutor_id: getProblemTutorID
+        title: getProblemTitle, student: getFullName, answer_text: "", submitted_on: currentDate, problem_id: getProblemID, student_id: getStudentID, subject: getProblemSubject, year: getProblemYear, tutor_id: getUserID
     });
 
     //Fetchign list of problems from the database
@@ -43,7 +45,7 @@ export default function TutorFeedback() {
     useEffect(() => {
         axios.get(url).then(response=> response.data)
     .then((data) => {
-        setProblems(data);
+        setContacts(data);
     })
 
     axios.get(url2).then(response=> response.data)
@@ -61,45 +63,41 @@ export default function TutorFeedback() {
         console.log(feedback);
         }
 
-    function submitFeedback() {
+    function submitFeedback(event) {
+        event.preventDefault();
+        console.log("Submitting Feedback");
+        console.log(feedback);
+        
+        //REPLACE WITH NEW PROBLEM CREATION PHP FILE
+        axios.post('http://localhost/reactProject/insertFeedback.php', feedback) //fix this shiiiiit
+        .then(res=> console.log(res.data))
 
+        alert("Feedback Submitted Succesfully")
+        navigate(`/tutorViewAnswers`);
     }
 
+    const exitPage = () => {
+        window.history.back();
+        };
+
+    var [count, setCount] = React.useState(0);
+    function addComment() {
+        setCount(prevCount => prevCount + 1)
+        console.log(count);
+        //Lower Screen to view new comment smoothly
+        window.scrollBy(0, 1000);
+        return count;
+    }
     return (
         <div>
             <NavBarTutor/>
 
+            <div className="solveHeader">
+                <ForwardedAnswer contacts={contacts} problemID={getProblemID}/>
+            </div>
+
             <div className="solveQuestionBody">
-                <div className="feedbackProblemView">
-                    {problems?.map((problem, index) => (
-                            <div key={index}>
-
-                                {problem.id === getProblemID  && 
-
-                                <div>
-                        
-                                    <div className="solveHeader">
-                                        <h3>{problem.subject}</h3>
-                                        <h3>{problem.year}</h3>
-                                        <h2>{problem.title}</h2>
-                                        <h3>{problem.degree}</h3>
-                                        <h3>{problem.tutor}</h3>
-                                    </div>
-                                
-                                    <div className="seven">
-                                        <h1>Problem</h1>
-                                    </div>
-
-                                    <div className="solveProblemBody">
-                                        <div className="problemTextStyle">{problem.content}</div> 
-                                    </div>
-                                
-                                </div>
-                                }
-                            
-                            </div>
-                        ))}
-                </div>
+            
 
                 <div className="feedbackSolutionView">
                     <div className="seven">
@@ -117,25 +115,60 @@ export default function TutorFeedback() {
                             ))}
                 </div>
 
+                <div className="seven">
+                    <h1>Feedback</h1>
+                </div>
+                
                 <div className="feedbackSection">
-                    <div className="seven">
-                        <h1>Feedback</h1>
-                    </div>
-
-                    <label className="studentLabel">Comment #1</label>
-                            <input 
-                            className="formInput"
-                            type="text"
-                            placeholder="Write a comment..."
-                            name="comment1"
-                            onChange={handleChange}
-                            value={feedback.comment1}
-                            required
-                            />
-                        <br/>
-                    <label className="studentLabel">Comment #2</label>
+                  
+                        
+                    <label className="commentLabel">Comment #1</label>
                         <input 
-                        className="formInput"
+                        className="feedbackTitleTutor"
+                        type="text"
+                        placeholder="Write a title..."
+                        name="title1"
+                        onChange={handleChange}
+                        value={feedback.title1}
+                        required
+                        />
+                        <input 
+                        className="feedbackCommentTutor"
+                        type="text"
+                        placeholder="Write a comment..."
+                        name="comment1"
+                        onChange={handleChange}
+                        value={feedback.comment1}
+                        required
+                        />
+                        <input 
+                        className="feedbackGradeTutor"
+                        type="number"
+                        placeholder="Insert Grade"
+                        name="grade1"
+                        onChange={handleChange}
+                        value={feedback.grade1}
+                        min="0"
+                        max="100"
+                        required
+                        />
+                      
+                        <br/>
+                     
+                    {   count >= 1 &&
+                    <div>
+                        <label className="commentLabel">Comment #2</label>
+                        <input 
+                        className="feedbackTitleTutor"
+                        type="text"
+                        placeholder="Write a title..."
+                        name="title2"
+                        onChange={handleChange}
+                        value={feedback.title2}
+                        required
+                        />
+                        <input 
+                        className="feedbackCommentTutor"
                         type="text"
                         placeholder="Write a comment..."
                         name="comment2"
@@ -143,10 +176,34 @@ export default function TutorFeedback() {
                         value={feedback.comment2}
                         required
                         />
-                        <br/>
-                    <label className="studentLabel">Comment #3</label>
                         <input 
-                        className="formInput"
+                        className="feedbackGradeTutor"
+                        type="number"
+                        placeholder="Insert Grade"
+                        name="grade2"
+                        onChange={handleChange}
+                        value={feedback.grade2}
+                        min="0"
+                        max="100"
+                        required
+                        />
+                        <br/>
+                        </div>}
+
+                    {   count >= 2 &&
+                        <div>
+                        <label className="commentLabel">Comment #3</label>
+                        <input 
+                        className="feedbackTitleTutor"
+                        type="text"
+                        placeholder="Write a title..."
+                        name="title3"
+                        onChange={handleChange}
+                        value={feedback.title3}
+                        required
+                        />
+                        <input 
+                        className="feedbackCommentTutor"
                         type="text"
                         placeholder="Write a comment..."
                         name="comment3"
@@ -154,24 +211,111 @@ export default function TutorFeedback() {
                         value={feedback.comment3}
                         required
                         />
-                        <br/>
-                    <label className="studentLabel">Grade</label>
                         <input 
-                        className="formInput"
+                        className="feedbackGradeTutor"
                         type="number"
                         placeholder="Insert Grade"
-                        name="grade"
+                        name="grade3"
                         onChange={handleChange}
-                        value={feedback.grade}
+                        value={feedback.grade3}
+                        min="0"
+                        max="100"
                         required
                         />
-                        
+                        <br/>
+                        </div>}
+
+                    {    count >= 3 &&
+                    <div>
+                        <label className="commentLabel">Comment #4</label>
+                        <input 
+                        className="feedbackTitleTutor"
+                        type="text"
+                        placeholder="Write a title..."
+                        name="title4"
+                        onChange={handleChange}
+                        value={feedback.title4}
+                        required
+                        />
+                        <input 
+                        className="feedbackCommentTutor"
+                        type="text"
+                        placeholder="Write a comment..."
+                        name="comment4"
+                        onChange={handleChange}
+                        value={feedback.comment4}
+                        required
+                        />
+                        <input 
+                        className="feedbackGradeTutor"
+                        type="number"
+                        placeholder="Insert Grade"
+                        name="grade4"
+                        onChange={handleChange}
+                        value={feedback.grade4}
+                        min="0"
+                        max="100"
+                        required
+                        />
+                        <br/>
+                        </div>}
+
+                    {   count >= 4 &&
+                    <div>
+                        <label className="commentLabel">Comment #5</label>
+                        <input 
+                        className="feedbackTitleTutor"
+                        type="text"
+                        placeholder="Write a title..."
+                        name="title5"
+                        onChange={handleChange}
+                        value={feedback.title5}
+                        required
+                        />
+                        <input 
+                        className="feedbackCommentTutor"
+                        type="text"
+                        placeholder="Write a comment..."
+                        name="comment5"
+                        onChange={handleChange}
+                        value={feedback.comment5}
+                        required
+                        />
+                        <input 
+                        className="feedbackGradeTutor"
+                        type="number"
+                        placeholder="Insert Grade"
+                        name="grade5"
+                        onChange={handleChange}
+                        value={feedback.grade5}
+                        min="0"
+                        max="100"
+                        required
+                        />
+                        <br/>
+                        </div>}
+                    <label className="feedbackTotalGradeLabel">Total Grade</label>
+                        <input 
+                        className="feedbackTotalGradeTutor"
+                        type="number"
+                        placeholder="Insert Grade"
+                        name="total_grade"
+                        onChange={handleChange}
+                        value={feedback.total_grade}
+                        min="0"
+                        max="100"
+                        required
+                        />
+
+
+            
                 </div>
             </div>
             
             <div className="solveFooter">
                 <button className="button-12" onClick={submitFeedback}>Submit Feedback</button>
-                <button className="button-13">Exit</button>
+                { count < 4 && <button className="button-11" onClick={addComment}>Add Extra Comment</button>}
+                <button className="button-13" onClick={exitPage}>Exit</button>
             </div>
         </div>
     )

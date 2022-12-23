@@ -44,6 +44,7 @@ export default function TutorViewAnswers() {
 
                     <ul className="responsive-table">
                         <li className="table-header">
+                            <div className="col col-1">Answer ID</div>
                             <div className="col col-1">Problem Title</div>
                             <div className="col col-2">Subject</div>
                             <div className="col col-3">Year</div>
@@ -55,6 +56,7 @@ export default function TutorViewAnswers() {
                         {answers?.map((answer, index) => (
                                 answer.tutor_id == userID &&
                                     <li className="table-row" key={index}>
+                                        <div className="col col-1" data-label="Title">{answer.id}</div>
                                         <div className="col col-1" data-label="Title">{answer.title}</div>
                                         <div className="col col-2" data-label="Subject">{answer.subject}</div>
                                         <div className="col col-3" data-label="Year">{answer.year}</div>
@@ -62,7 +64,7 @@ export default function TutorViewAnswers() {
                                         <div className="col col-4" data-label="Submitted_on">{answer.submitted_on}</div> 
                                         <div className="col col-4" data-label="Action">
                                             <Link to={`/tutorFeedback/?${index}`}>
-                                                <button className="messageBtn" onClick={ForwardIndex(answer.title, answer.student, answer.answer_text, answer.submitted_on, answer.id, answer.problem_id, answer.student_id, answer.subject, answer.year, index)}>
+                                                <button className="messageBtn" onClick={() => ForwardIndex(answer.title, answer.student, answer.answer_text, answer.submitted_on, answer.id, answer.problem_id, answer.student_id, answer.subject, answer.year, index)}>
                                                     View Answer
                                                 </button>
                                             </Link>

@@ -199,7 +199,7 @@ export default function SignUpStudent() {
                                 <option>IT</option>
                                 <option>Film and Animation</option>
                                 <option>Logistics</option>
-                                <optin>Visual Design</optin>
+                                <option>Visual Design</option>
                                 <option>Web Media</option>
                             </select>
 

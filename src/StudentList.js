@@ -72,6 +72,15 @@ import axios from "axios";
                 setContact(data)
             })
         }, [])
+
+        function forwardIndex(index, student_id, student_name, student_degree, student_email) {
+            localStorage.setItem('chatIndex', index);
+            localStorage.setItem('student_id', student_id);
+            localStorage.setItem('student_name', student_name);
+            localStorage.setItem('student_degree', student_degree);
+            localStorage.setItem('student_email', student_email);
+            localStorage.setItem('sender_accountType', "Student");
+        }
                 
                 return (
                     <div>
@@ -103,7 +112,11 @@ import axios from "axios";
                                             <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                             <div className="col col-2" data-label="Subject">{contact.degree}</div>
                                             <div className="col col-3" data-label="Year">{contact.year}</div>
-                                            <div className="col col-4" data-label="Title"><button className="messageBtn">Message</button></div>
+                                            <div className="col col-4" data-label="Title">
+                                                <Link to={`/messagingInterface/?${index}`}>
+                                                    <button className="messageBtn" onClick={() => forwardIndex(index, contact.id, contact.full_name, contact.degree, contact.email)}>Message</button>
+                                                </Link>
+                                            </div>
                                             <div className="col col-4" data-label="Tutor"><button type="button" className="reportBtn" onClick={() => createReport(contact.id, contact.full_name)}>Report</button></div>   
                                         </li>
                                     

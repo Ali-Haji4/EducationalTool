@@ -9,7 +9,8 @@ export default function StudentProblems() {
 
     const [contacts, setContacts] = React.useState([{}]);
     const url = 'http://localhost/reactProject/problemsList.php';
-
+    const [feedbacks, setFeedbacks] = React.useState([{}]);
+    const url2 = 'http://localhost/reactProject/feedbackList.php';
     //Storing Filter data
     const [filterData, setFilterData] = React.useState(
     {year: "Year", degree: "Degree", difficulity: ""}
@@ -19,10 +20,12 @@ export default function StudentProblems() {
 
     //VARIABLE DECLARATION
     const [accountType, setAccountType] = React.useState(true);
-    //Fetch userID from Local Storage
+    //Fetch userID and user's full name from Local Storage
     let userID = JSON.parse(localStorage.getItem("userID"));  
+    let getName = JSON.parse(JSON.stringify(localStorage.getItem("fullName")));  
     //gets the account type that was set in the login page from local storage
     const getAccountType = localStorage.getItem("accountType");
+    const getNotifications = localStorage.getItem("notificationAvailable");
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     //Filter Components
     const [filterMode, setFilterMode] = React.useState(false);
@@ -31,13 +34,20 @@ export default function StudentProblems() {
     const [soloFilterYear, setSoloFilterYear] = React.useState(true);
     const [soloFilterDegree, setSoloFilterDegree] = React.useState(true);
     const [degreeFilter, setDegreeFilter] = React.useState("");
-    const [difficulityFilter, setDifficulityFilter] = React.useState("");
-    
+
+    //feedback state
+    var [feedbackAvailable, setFeedbackAvailable] = React.useState(false);
+
     //Fetch the problems from the database
     useEffect(() => {
         axios.get(url).then(response=> response.data)
     .then((data) => {
         setContacts(data);
+    })
+
+    axios.get(url2).then(response=> response.data)
+    .then((data) => {
+        setFeedbacks(data);
     })
     }, [])
 
@@ -97,7 +107,6 @@ export default function StudentProblems() {
     }
 
 
-
     function clearFilters() {
         console.log("cleaning...")
         
@@ -105,11 +114,10 @@ export default function StudentProblems() {
         setFilterMode(false);
         setShutOff(false);
     }
-      
-    const url2 = 'http://localhost/reactProject/filterByYear.php';
-
+  
     return(
         <div>
+                        
             <NavBarStudent/>
             <div className="studentInterfaceBody">
                 
@@ -140,12 +148,6 @@ export default function StudentProblems() {
                             </select>
 
                             <input type="hidden" name="year" value="2"></input>
-               
-                            <select name="difficulity" className="button-11" onChange={handleChange} value={filterData.difficulity}>
-                                <option>Easy</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
-                            </select>
             
                         <button className="button-11" onClick={clearFilters}>Clear Filters</button>
                     </div>
@@ -165,7 +167,7 @@ export default function StudentProblems() {
                         filterMode == false &&
                         contacts?.map((contact, index) => (
                                     <li className="table-row" key={index}>
-                                               <h1>imposter4</h1>
+                                             
                                         <div className="col col-1" data-label="Degree">{contact.degree}</div>
                                         <div className="col col-2" data-label="Subject">{contact.subject}</div>
                                         <div className="col col-3" data-label="Year">{contact.year}</div>
@@ -185,7 +187,7 @@ export default function StudentProblems() {
                                 <div key={index}>
                                     {filterMode == true && filterData.year == contact.year && degreeFilter == false && soloFilterYear &&
                                         <li className="table-row" >
-                                            <h1>imposter3</h1>
+                                      
                                         <div className="col col-1" data-label="Degree">{contact.degree}</div>
                                         <div className="col col-2" data-label="Subject">{contact.subject}</div>
                                         <div className="col col-3" data-label="Year">{contact.year}</div>
@@ -208,7 +210,7 @@ export default function StudentProblems() {
                                     // filterMode == true && filterData.year == contact.year && degreeFilter == true && filterData.degree == contact.degree &&
                                         filterMode == true  && contact.year === filterData.year && filterData.degree == contact.degree &&
                                         <li className="table-row" >
-                                        <h1>imposter</h1>
+                                       
                                         <div className="col col-1" data-label="Degree">{contact.degree}</div>
                                         <div className="col col-2" data-label="Subject">{contact.subject}</div>
                                         <div className="col col-3" data-label="Year">{contact.year}</div>
@@ -230,7 +232,7 @@ export default function StudentProblems() {
                                       
                                     {filterMode == true && filterData.degree == contact.degree && soloFilterDegree == true && shutOff === false &&
                                         <li className="table-row" >
-                                        <h1>imposter2</h1>
+                                  
                                         <div className="col col-1" data-label="Degree">{contact.degree}</div>
                                         <div className="col col-2" data-label="Subject">{contact.subject}</div>
                                         <div className="col col-3" data-label="Year">{contact.year}</div>

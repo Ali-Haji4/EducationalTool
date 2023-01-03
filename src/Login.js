@@ -15,7 +15,8 @@ export default function Login() {
     const [accountType, setAccountType] = React.useState("Student");    
 
     const [errorMsg, setErrorMsg] = React.useState(false);
-
+    const [currentError, setCurrentError] = React.useState("");
+    
     function changeAccountType(event) {
         // setAccountType(prevAccType => !prevAccType);
         if(event.target.value == "Student") {
@@ -117,8 +118,8 @@ export default function Login() {
                 localStorage.setItem('userID', id);
                 localStorage.setItem('accountType', "Student");
                 localStorage.setItem('fullName', fullName);
-                navigate(`/studentInterface?id=${id}`);
-                
+                // navigate(`/studentInterface?id=${id}`);
+                navigate(`/StudentProblems?id=${id}`);
             }
             else if (accountType == "Tutor"){
                 console.log("login id: ")
@@ -129,7 +130,8 @@ export default function Login() {
                 localStorage.setItem('accountType', "Tutor");
                 localStorage.setItem('fullName', fullName);
                 localStorage.setItem('degree', tutorDegree);
-                navigate(`/tutorInterface?id=${id}`);
+                // navigate(`/tutorInterface?id=${id}`);
+                navigate(`/tutorProblems?id=${id}`);
                 
             }
             else {

@@ -67,6 +67,10 @@ export default function Profile() {
         }
     }
 
+    function changePassword() {
+        
+    }
+
     function submitChange() {
     
         console.log("Saving");
@@ -112,7 +116,7 @@ export default function Profile() {
 
             //THE EDIT FUNCTION WORKS EVEN WITHOUT THE CODE BELOW FOR SOME REASON -> Because it purely uses php
 
-            axios.post('http://localhost/reactProject/updateStudent.php',formData) //fix this shiiiiit
+            axios.post('http://localhost/reactProject/updateStudent.php',formData) 
             .then(res=> res.data)
             .catch(error => {
               console.log(error.response)
@@ -268,28 +272,37 @@ export default function Profile() {
                                 <h2 className="profileFirstName">First Name: {formData.firstName}</h2>
                                 <h2 className="profileLastName">Last Name: {formData.lastName}</h2>
                                 <h2 className="profileLastName">Email: {formData.email}</h2>
-                                <h2 className="profilePassword">Password: {formData.password}</h2>   
+                                {/* <h2 className="profilePassword">Password: {formData.password}</h2>    */}
                             </div>  
                             }
-                   
-                            <button className="editProfileBtn" onClick={editProfile}>Edit Profile</button>
+                            <div className="profileBtnContainer">
+                                <div className="editBtnContainer">
+                                    <button className="editProfileBtn" onClick={editProfile}>Edit Profile</button>
+                                </div>
+                                <div>
+                                    <button className="reportBtn" onClick={deleteAccount}>Delete Account</button>
+                                </div>
+                       
+                            </div>
+                    
+                            
                           
                         </div>
                      
                     {
-                    //Displayed for Student Profile Only
-                    accountType ? 
-                        <div className="studentStats">
-                            <h1>Total Problems Solved:</h1>
-                            <h1>Average Score:</h1>
-                            <button className="reportBtnProfile" onClick={deleteAccount}>Delete Account</button>
-                        </div> 
-                                :
-                        <div className="TeacherStats">
-                            <h1>Total Problems Created:</h1>
-                            <h1>Total Likes:</h1>
-                        <button className="reportBtnProfile" onClick={deleteAccount}>Delete Account</button>
-                    </div> 
+                    // //Displayed for Student Profile Only
+                    // accountType ? 
+                    //     <div className="studentStats">
+                    //         <h1>Total Problems Solved:</h1>
+                    //         <h1>Average Score:</h1>
+                    //         <button className="reportBtnProfile" onClick={deleteAccount}>Delete Account</button>
+                    //     </div> 
+                    //             :
+                    //     <div className="TeacherStats">
+                    //         <h1>Total Problems Created:</h1>
+                    //         <h1>Total Likes:</h1>
+                    //     <button className="reportBtnProfile" onClick={deleteAccount}>Delete Account</button>
+                    // </div> 
                     }
                 </div>
             </div>

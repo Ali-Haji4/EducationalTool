@@ -88,29 +88,49 @@ export default function StudentReview() {
                             </div>
                             <div className="theLine"></div>
                             <div className="feedbackLine">
+                                {feedback.title1 != "" && 
+                                <>
                                 <h4 className="feedbackTitle">{feedback.title1}</h4>
                                 <h4 className="feedbackComment">{feedback.comment1}</h4>
                                 <h4 className="feedbackGrade">{feedback.grade1}</h4>
+                                </>
+                                }
                             </div>
                             <div className="feedbackLine">
+                                {feedback.title2 != "" && 
+                                <>
                                 <h4 className="feedbackTitle">{feedback.title2}</h4>
                                 <h4 className="feedbackComment">{feedback.comment2}</h4>
                                 <h4 className="feedbackGrade">{feedback.grade2}</h4>
+                                </>
+                                }      
                             </div>
                             <div className="feedbackLine">
+                                {feedback.title3 != "" && 
+                                <>
                                 <h4 className="feedbackTitle">{feedback.title3}</h4>
                                 <h4 className="feedbackComment">{feedback.comment3}</h4>
                                 <h4 className="feedbackGrade">{feedback.grade3}</h4>
+                                </>
+                                }  
                             </div>
                             <div className="feedbackLine">
+                                {feedback.title4 != "" && 
+                                <>
                                 <h4 className="feedbackTitle">{feedback.title4}</h4>
                                 <h4 className="feedbackComment">{feedback.comment4}</h4>
                                 <h4 className="feedbackGrade">{feedback.grade4}</h4>
+                                </>
+                                }  
                             </div>
                             <div className="feedbackLine">
+                                 {feedback.title5 != "" && 
+                                <>
                                 <h4 className="feedbackTitle">{feedback.title5}</h4>
                                 <h4 className="feedbackComment">{feedback.comment5}</h4>
                                 <h4 className="feedbackGrade">{feedback.grade5}</h4>
+                                </>
+                                } 
                             </div>
                         </div>
                         <div className="feedbackTotalGrade">

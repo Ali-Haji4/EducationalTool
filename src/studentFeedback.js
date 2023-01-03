@@ -20,7 +20,7 @@ export default function StudentFeedback() {
     const getAccountType = localStorage.getItem("accountType");
     //Attach a reference to a form
     const form = useRef();
-    //Fetch the problems from the database
+    //Fetch the feedbacks from the database
     useEffect(() => {
         axios.get(url).then(response=> response.data)
     .then((data) => {
@@ -34,13 +34,6 @@ export default function StudentFeedback() {
 
     function DeleteFeedback(id) {
         console.log("Deleting Feedback...." + id);
-        // if(window.confirm("Press Ok To Verify Delete Feedback Action") === true) {
-        //         form.current.submit();  
-        //         alert("Feedback Deleted Succesfully")
-        // }
-        // else {
-        //     console.log("went back");
-        // }
 
         alert("Feedback Deleted Succesfully")
 }
@@ -77,7 +70,7 @@ export default function StudentFeedback() {
 
 
                         {feedbacks?.map((feedback, index) => (
-                                feedback.deleted != "deleted" &&
+                                feedback.deleted != "deleted" && feedback.student_id == userID &&
                               <form ref={form} name="feedbackIDForm" method="post" action="http://localhost/reactProject/deleteFeedback.php" key={index}>
                                     <li className="table-row">
                                         <div className="col col-1" data-label="Degree">{feedback.answer_id}</div>

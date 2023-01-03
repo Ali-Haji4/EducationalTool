@@ -33,10 +33,10 @@ export default function AdmintInterface() {
 
     function deleteReport(id) {
         console.log("Deleting Report...." + id);
-        if(window.confirm("Press Ok To Verify Delete Report Action") == true) {
+
                 form.current.submit();  
                 alert("Report Deleted Succesfully")
-        }
+        
     }
             
             return(

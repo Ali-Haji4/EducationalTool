@@ -75,6 +75,15 @@ export default function TutorList() {
         setReportWindow(prevState => !prevState)
     }
 
+    function forwardIndex(index, tutor_id, tutor_name, tutor_degree, tutor_email) {
+        localStorage.setItem('chatIndex', index);
+        localStorage.setItem('tutor_id', tutor_id);
+        localStorage.setItem('tutor_name', tutor_name);
+        localStorage.setItem('tutor_degree', tutor_degree);
+        localStorage.setItem('tutor_email', tutor_email);
+        localStorage.setItem('sender_accountType', "Tutor");
+    }
+
     return (
         <div>
             {getAccountType == "Student" ?<NavBarStudent/> : <NavBarTutor/>}
@@ -102,7 +111,11 @@ export default function TutorList() {
                                 <li className="table-row" key={index}>
                                 <div className="col col-1" data-label="Degree">{contact.full_name}</div>
                                 <div className="col col-2" data-label="Subject">{contact.degree}</div>
-                                <div className="col col-3" data-label="Title"><button className="messageBtn">Message</button></div>
+                                <div className="col col-3" data-label="Title">
+                                    <Link to={`/messagingInterfaceTutors/?${index}`}>
+                                        <button className="messageBtn" onClick={() => forwardIndex(index, contact.id, contact.full_name, contact.degree, contact.email)}>Message</button>
+                                    </Link>
+                                </div>
                                 <div className="col col-4" data-label="Tutor"><button className="reportBtn" onClick={() => createReport(contact.id, contact.full_name)}>Report</button></div>   
                                 </li>
 

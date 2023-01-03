@@ -26,6 +26,10 @@ import TutorFeedback from './tutorFeedback';
 import ViewProblem from './viewProblem';
 import StudentFeedback from './studentFeedback';
 import StudentReview from './studentReview';
+import LearnMore from './learnMore';
+import MessagingInterface from './messagingInterface';
+import MessagingInterfaceTutors from './messagingInterfaceTutors';
+import ViewMessages from './viewMessages';
 
 function App() {
   const [id, setID] = React.useState();
@@ -58,6 +62,10 @@ function App() {
             <Route path="tutorViewAnswers" element={<TutorViewAnswers />} />
             <Route path="tutorFeedback" element={<TutorFeedback />} />
             <Route path="viewProblem" element={<ViewProblem />} />
+            <Route path="learnMore" element={<LearnMore />} />
+            <Route path="messagingInterface" element={<MessagingInterface />} />
+            <Route path="messagingInterfaceTutors" element={<MessagingInterfaceTutors />} />
+            <Route path="viewMessages" element={<ViewMessages />} />
           </Routes>
         </div>
       </div>

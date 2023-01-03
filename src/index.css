@@ -96,6 +96,9 @@ body {
   font-weight: 400;
 }
 
+
+/*END OF NAVBAR STYLING*/
+
 .loginButton {
   border: none;
   background-color: white;
@@ -1650,5 +1653,341 @@ body:not(:-moz-handler-blocked) fieldset {display: table-cell;}
   /* INPUT TEST AREA */
 
   /* TEST AREA FOR NAVBAR ------------------------------------------------------------------------ */
-
+  /* * {
+    box-sizing: border-box;
+  }
   
+  body {
+    margin: 0px;
+    font-family: 'segoe ui';
+  } */
+  
+  .nav {
+    /* height: 50px; previous height*/
+    height: 70px;
+    box-shadow: 0px 2.9825618267059326px 7.456404209136963px 0px #0000001A;
+    width: 100%;
+    background-color:  rgba(0,172,193,1);
+    position: relative;
+  }
+  
+  .nav > .nav-header {
+    display: inline;
+  }
+  
+  .nav > .nav-header > .nav-title {
+    display: inline-block;
+    font-size: 32px;
+    color: #fff;
+    padding: 10px 10px 10px 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .nav > .nav-btn {
+    display: none;
+  }
+  
+  .nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+  }
+  
+  .nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: #efefef;
+  }
+  
+  .nav > .nav-links > a:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .nav > #nav-check {
+    display: none;
+  }
+  
+  @media (max-width:600px) {
+    .nav > .nav-btn {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+    .nav > .nav-btn > label {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 13px;
+    }
+    .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .nav > .nav-btn > label > span {
+      display: block;
+      width: 25px;
+      height: 10px;
+      border-top: 2px solid #eee;
+    }
+    .nav > .nav-links {
+      position: absolute;
+      display: block;
+      width: 100%;
+      background-color:  rgba(0,172,193,1);
+      height: 0px;
+      transition: all 0.3s ease-in;
+      overflow-y: hidden;
+      top: 50px;
+      left: 0px;
+    }
+    .nav > .nav-links > a {
+      display: block;
+      width: 100%;
+    }
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+      height: 0px;
+    }
+    .nav > #nav-check:checked ~ .nav-links {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+    }
+  }
+
+  /*LEARN MORE PAGE*/
+
+  .learnMoreBody {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .aboutUs-1 {
+    display: flex;
+ 
+    
+  }
+
+  .aboutUs-text {
+    padding-right: 20px;
+    width: 60vw;
+  }
+
+  .aboutUs-img {
+    height: 30vw;
+  }
+
+  .ourGoals-2 {
+    display: flex;
+    margin-top: 3rem;
+
+  }
+
+  .ourGoals-text {
+    padding-left: 20px;
+  }
+
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap");
+
+
+.container2 {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 40px 0;
+}
+
+.container2 .card {
+  position: relative;
+  min-width: 320px;
+  height: 440px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin: 30px;
+  transition: 0.5s;
+}
+
+.container2 .card:nth-child(1) .box .content a {
+  background: #2196f3;
+}
+
+.container2 .card:nth-child(2) .box .content a {
+  background: #e91e63;
+}
+
+.container2 .card:nth-child(3) .box .content a {
+  background: #23c186;
+}
+
+.container2 .card .box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: #2a2b2f;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.container2 .card .box:hover {
+  transform: translateY(-50px);
+}
+
+.container2 .card .box:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 1020%;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.container2 .card .box .content {
+  padding: 20px;
+  text-align: center;
+  height: 250px;
+  /* padding-bottom: 70px ; */
+}
+
+.container2 .card .box .content h2 {
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  font-size: 8rem;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.container2 .card .box .content h3 {
+  font-size: 1.8rem;
+  color: black;
+  z-index: 1;
+  transition: 0.5s;
+  margin-bottom: 15px;
+}
+
+.container2 .card .box .content p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: black;
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.container2 .card .box .content a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 20px;
+  background: black;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  margin-top: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+}
+.container2 .card .box .content a:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  background: #fff;
+  color: #000;
+}
+
+.statsSection {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgba(0,172,193,1);
+  border-radius: 20px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.statsNo {
+  margin-right: 5rem;
+  font-size: 30px;
+}
+
+.statsText {
+  font-size: 25px;
+}
+
+.learnMoreTitle {
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.learnMoreText {
+  font-size: 20px;
+}
+
+.learnMoreBtns {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profileBtnContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.editBtnContainer {
+  margin-bottom: 2rem;
+}
+
+/* CHAT STYLING*/
+
+.chatBox {
+  height: 8rem;
+  width: 30rem;
+  font-size: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.chatHeader {
+  margin-top: 50px;
+}
+
+.chatBoxTitle {
+  height: 2rem;
+  width: 18rem;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/*View messages*/
+
+.viewChatOutline {
+  outline: 2px red solid;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-top: 3rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+}

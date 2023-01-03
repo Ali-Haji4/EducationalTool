@@ -131,7 +131,11 @@ export default function SignUpTutor() {
                         required
                         />
 
-                    <label className="tutorLabel">Password</label>
+                    <div className="passwordTip">
+                        <span className="passwordTipText">Minimum eight characters. At least one uppercase letter, one lowercase letter and one number</span>
+                        <label className="tutorLabel">Password</label>
+                        <span>*</span>
+                    </div>  
                     <input 
                         className="formInput"
                         type="password" 

@@ -41,18 +41,18 @@ export default function ManageUsers() {
 
     function DeleteUser(id) {
         console.log("Deleting User...." + id);
-        if(window.confirm("Press Ok To Verify Delete Account Action") == true) {
+
                 form.current.submit();  
                 alert("Account Deleted Succesfully2")
-        }
+        
     }
 
     function DeleteTutor(id) {
         console.log("Deleting Tutor...." + id);
-        if(window.confirm("Press Ok To Verify Delete Account Action") == true) {
+
             document.getElementById("formTutor").submit();
             alert("Account Deleted Succesfully2")
-    }
+    
     }
     
     function changeAccountType(event) {

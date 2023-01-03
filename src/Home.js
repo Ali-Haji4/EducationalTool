@@ -16,6 +16,11 @@ export default function Home() {
     navigate('/Login');
     };
 
+    const navigateToLearnMore = () => {
+        // 👇️ navigate to /contacts
+        navigate('/LearnMore');
+        };
+
     return(
         <div className="homePage">
 
@@ -38,7 +43,7 @@ export default function Home() {
                  
                         <button onClick={navigateToSignUp} className="button-53" type="button">Join Now</button>
                 
-                        <button className="button-54" type="button">Learn More</button> 
+                        <button className="button-54" type="button" onClick={navigateToLearnMore}>Learn More</button> 
                   
                 </div>
 

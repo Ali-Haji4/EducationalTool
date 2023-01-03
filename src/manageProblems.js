@@ -26,10 +26,10 @@ export default function ManageProblems () {
 
     function DeleteProblem(id) {
             console.log("Deleting Problem...." + id);
-            if(window.confirm("Press Ok To Verify Delete Problem Action") == true) {
+
                     form.current.submit();  
                     alert("Problem Deleted Succesfully")
-            }
+            
     }
 
     function forwardIndex(index, id, title, subject, year, tutor_id) {

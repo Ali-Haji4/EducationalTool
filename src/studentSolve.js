@@ -89,14 +89,14 @@ export default function StudentSolve() {
         }
 
       
-        //WORK IN PROGRESS
+       
     function saveDraft(event) {
 
         event.preventDefault();
         console.log("Submitting Draft");
         console.log(draftData);
         
-        axios.post('http://localhost/reactProject/insertDraft.php', draftData) //fix this shiiiiit
+        axios.post('http://localhost/reactProject/insertDraft.php', draftData) 
         .then(res=> console.log(res.data))
 
         alert("Draft Saved Succesfully")

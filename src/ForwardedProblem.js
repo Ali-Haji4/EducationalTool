@@ -13,14 +13,6 @@ const ForwardedProblem = (props) => {
                          {index == problemIndex && 
 
                          <div>
-                
-                            {/* <div className="solveHeader">
-                                <h3>{contact.subject}</h3>
-                                <h3>{contact.year}</h3>
-                                <h2>{contact.title}</h2>
-                                <h3>{contact.degree}</h3>
-                                <h3>{contact.tutor}</h3>
-                            </div> */}
 
                             <div className="headerProblem">
 

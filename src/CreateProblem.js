@@ -57,7 +57,7 @@ export default function CreateProblem() {
         alert("Problem Created Succesfully")
         
         //REPLACE WITH NEW PROBLEM CREATION PHP FILE
-        axios.post('http://localhost/reactProject/insertProblem.php', problemData) //fix this shiiiiit
+        axios.post('http://localhost/reactProject/insertProblem.php', problemData) 
         .then(res=> console.log(res.data))
 
         //PERHAPS REDIRECT TO PROBLEM PAGES
